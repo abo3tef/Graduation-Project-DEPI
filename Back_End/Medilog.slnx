@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Medilog.Api/Medilog.Api.csproj" />
+    <Project Path="src/Medilog.Application/Medilog.Application.csproj" />
+    <Project Path="src/Medilog.Domain/Medilog.Domain.csproj" />
+    <Project Path="src/Medilog.Infrastructure/Medilog.Infrastructure.csproj" />
+  </Folder>
+</Solution>
