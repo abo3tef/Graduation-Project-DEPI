@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --background: #f6f8fb;
+  --foreground: #182230;
+  --muted: #637083;
+  --brand: #126b63;
+  --brand-soft: #e7f4f1;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Tahoma, Arial, sans-serif;
+}
+
+.page-shell {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 2rem;
+}
+
+.welcome-card {
+  width: min(100%, 760px);
+  padding: clamp(2rem, 6vw, 4.5rem);
+  border: 1px solid #e4eaf0;
+  border-radius: 28px;
+  background: #fff;
+  box-shadow: 0 24px 64px rgb(22 45 61 / 7%);
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--brand);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.language-switcher {
+  color: var(--brand);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.language-switcher:hover {
+  text-decoration: underline;
+}
+
+h1 {
+  max-width: 14ch;
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+}
+
+.description {
+  max-width: 54ch;
+  margin: 1.25rem 0 2rem;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+
+.scope-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.scope-list span {
+  padding: 0.65rem 0.9rem;
+  border-radius: 999px;
+  background: var(--brand-soft);
+  color: #155c56;
+  font-size: 0.9rem;
+  font-weight: 600;
+}

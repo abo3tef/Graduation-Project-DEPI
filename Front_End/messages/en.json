@@ -1,0 +1,15 @@
+{
+  "home": {
+    "eyebrow": "Smart Medical Records Platform",
+    "title": "A clearer workspace for doctors.",
+    "description": "One place to manage patient records and appointments, and review medical histories securely.",
+    "scopeLabel": "Platform areas",
+    "patients": "Patients",
+    "appointments": "Appointments",
+    "medicalRecords": "Medical records",
+    "timeline": "Medical timeline"
+  },
+  "language": {
+    "switchTo": "العربية"
+  }
+}
