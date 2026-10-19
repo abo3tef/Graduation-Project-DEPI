@@ -2,16 +2,71 @@
 
 :root {
   color-scheme: light;
-  --background: #f6f8fb;
-  --foreground: #182230;
-  --muted: #637083;
-  --brand: #126b63;
-  --brand-soft: #e7f4f1;
+  --color-background: #f3f6fa;
+  --color-surface: #ffffff;
+  --color-text: #0a1a33;
+  --color-muted: #55627a;
+  --color-border: #dde4ee;
+  --color-primary: #0f766e;
+  --color-primary-light: #2dd4bf;
+  --color-tint: #e3f3f2;
+  --color-dark: #0a1a33;
+  --color-danger: #e5484d;
+  --color-warning: #c98511;
+  --color-success: #0f9f6e;
+  --color-status-scheduled: #64748b;
+  --color-status-confirmed: #0f766e;
+  --color-status-completed: #2563eb;
+  --color-status-cancelled: #e5484d;
+  --color-status-no-show: #c98511;
+  --background: var(--color-background);
+  --surface: var(--color-surface);
+  --foreground: var(--color-text);
+  --muted: var(--color-muted);
+  --border: var(--color-border);
+  --brand: var(--color-primary);
+  --primary-light: var(--color-primary-light);
+  --brand-soft: var(--color-tint);
+  --danger: var(--color-danger);
+  --warning: var(--color-warning);
+  --success: var(--color-success);
+  --status-scheduled: var(--color-status-scheduled);
+  --status-confirmed: var(--color-status-confirmed);
+  --status-completed: var(--color-status-completed);
+  --status-cancelled: var(--color-status-cancelled);
+  --status-no-show: var(--color-status-no-show);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-primary: var(--brand);
+  --color-primary-light: var(--primary-light);
+  --color-tint: var(--brand-soft);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-success: var(--success);
+  --color-status-scheduled: var(--status-scheduled);
+  --color-status-confirmed: var(--status-confirmed);
+  --color-status-completed: var(--status-completed);
+  --color-status-cancelled: var(--status-cancelled);
+  --color-status-no-show: var(--status-no-show);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --color-background: #0a1220;
+    --color-surface: #111c30;
+    --color-text: #eaf0fa;
+    --color-muted: #a9b6ca;
+    --color-border: #26364e;
+    --color-primary: #2dd4bf;
+    --color-tint: #153c3b;
+  }
 }
 
 * {
@@ -23,7 +78,7 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Tahoma, Arial, sans-serif;
+  font-family: var(--font-cairo), sans-serif;
 }
 
 .page-shell {
@@ -36,9 +91,9 @@ body {
 .welcome-card {
   width: min(100%, 760px);
   padding: clamp(2rem, 6vw, 4.5rem);
-  border: 1px solid #e4eaf0;
+  border: 1px solid var(--color-border);
   border-radius: 28px;
-  background: #fff;
+  background: var(--color-surface);
   box-shadow: 0 24px 64px rgb(22 45 61 / 7%);
 }
 
