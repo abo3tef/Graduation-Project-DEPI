@@ -11,5 +11,60 @@
   },
   "language": {
     "switchTo": "English"
+  },
+  "shell": {
+    "brand": "السجل الطبي",
+    "nav": {
+      "dashboard": "لوحة التحكم",
+      "patients": "المرضى",
+      "appointments": "المواعيد",
+      "logout": "تسجيل الخروج",
+      "label": "التنقل الرئيسي"
+    },
+    "roleSwitcher": {
+      "label": "تبديل الدور",
+      "doctor": "الدكتور",
+      "secretary": "السكرتارية"
+    }
+  },
+  "status": {
+    "scheduled": "محجوز",
+    "confirmed": "مؤكد",
+    "completed": "مكتمل",
+    "cancelled": "ملغي",
+    "no-show": "لم يحضر"
+  },
+  "common": {
+    "openFile": "فتح الملف",
+    "noVisitYet": "لا توجد زيارة سابقة",
+    "lastVisit": "آخر زيارة",
+    "demoData": "بيانات تجريبية.",
+    "dismiss": "إغلاق التنبيه",
+    "viewAll": "عرض الكل"
+  },
+  "dashboard": {
+    "title": "لوحة التحكم",
+    "subtitle": "نظرة سريعة على نشاط اليوم",
+    "pendingBanner": "{count, plural, one {فيه موعد} two {فيه موعدين} other {فيه # مواعيد}} لسه في حالة «محجوز». حدّث الحالة بعد الكشف.",
+    "stats": {
+      "totalPatients": "إجمالي المرضى",
+      "weeklyVisits": "زيارات الأسبوع",
+      "todayAppointments": "مواعيد النهارده",
+      "newRecords": "سجلات جديدة"
+    },
+    "visits": {
+      "title": "الزيارات",
+      "week": "الأسبوع",
+      "fourWeeks": "آخر 4 أسابيع",
+      "rangeLabel": "نطاق العرض",
+      "unit": "زيارة"
+    },
+    "today": {
+      "title": "مواعيد النهارده",
+      "empty": "لا توجد مواعيد النهارده."
+    },
+    "recentPatients": {
+      "title": "آخر المرضى"
+    }
   }
 }
