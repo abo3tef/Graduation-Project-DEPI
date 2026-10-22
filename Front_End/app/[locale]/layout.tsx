@@ -4,6 +4,8 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import Footer from "@/components/layout/Footer";
+import NavBar from "@/components/layout/NavBar";
 import "../globals.css";
 
 const cairo = Cairo({
@@ -79,7 +81,11 @@ export default async function LocaleLayout({
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <body className={cairo.variable}>
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <div className="site-layout">
+            <NavBar />
+            <main className="site-main">{children}</main>
+            <Footer />
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>

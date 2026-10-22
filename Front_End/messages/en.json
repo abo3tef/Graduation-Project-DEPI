@@ -10,6 +10,42 @@
     "timeline": "Medical timeline"
   },
   "language": {
-    "switchTo": "العربية"
+    "switchTo": "العربية",
+    "ariaLabel": "Change language to Arabic"
+  },
+  "navigation": {
+    "brand": "midiLog",
+    "ariaLabel": "Main navigation",
+    "home": "Patient journey",
+    "features": "Features",
+    "search": "Search",
+    "security": "Security",
+    "login": "Log in",
+    "menu": "Open menu"
+  },
+  "footer": {
+    "brand": "midiLog",
+    "description": "A unified platform for managing patient medical records efficiently and securely, with easy access to essential information.",
+    "learnMore": "Learn more",
+    "platform": {
+      "title": "Platform",
+      "patients": "Patient journey",
+      "appointments": "Appointment details",
+      "records": "Find a patient"
+    },
+    "account": {
+      "title": "Account",
+      "login": "Log in",
+      "register": "Create account",
+      "forgotPassword": "Forgot password"
+    },
+    "security": {
+      "title": "Security",
+      "permissions": "Role-based permissions",
+      "privacy": "Doctor data isolation",
+      "contact": "Contact us"
+    },
+    "copyright": "midiLog - Graduation Project",
+    "tagline": "Prototype with sample data only, not for patient use"
   }
 }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Medilog.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+52cecfa0749791b186a793f3e88cd77682c0961c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2013045e19a092a35da43801318036da1b46d7cf")]
 [assembly: System.Reflection.AssemblyProductAttribute("Medilog.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Medilog.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
