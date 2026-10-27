@@ -10,6 +10,62 @@
     "timeline": "Medical timeline"
   },
   "language": {
+    "switchTo": "العربية"
+  },
+  "shell": {
+    "brand": "Medical Record",
+    "nav": {
+      "dashboard": "Dashboard",
+      "patients": "Patients",
+      "appointments": "Appointments",
+      "logout": "Log out",
+      "label": "Main navigation"
+    },
+    "roleSwitcher": {
+      "label": "Switch role",
+      "doctor": "Doctor",
+      "secretary": "Secretary"
+    }
+  },
+  "status": {
+    "scheduled": "Scheduled",
+    "confirmed": "Confirmed",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "no-show": "No-show"
+  },
+  "common": {
+    "openFile": "Open file",
+    "noVisitYet": "No previous visit",
+    "lastVisit": "Last visit",
+    "demoData": "Demo data.",
+    "dismiss": "Dismiss alert",
+    "viewAll": "View all"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "A quick look at today’s activity",
+    "pendingBanner": "{count, plural, one {# appointment is} other {# appointments are}} still marked “Scheduled”. Update the status after the visit.",
+    "stats": {
+      "totalPatients": "Total patients",
+      "weeklyVisits": "Visits this week",
+      "todayAppointments": "Today’s appointments",
+      "newRecords": "New records"
+    },
+    "visits": {
+      "title": "Visits",
+      "week": "This week",
+      "fourWeeks": "Last 4 weeks",
+      "rangeLabel": "Display range",
+      "unit": "visits"
+    },
+    "today": {
+      "title": "Today’s appointments",
+      "empty": "No appointments today."
+    },
+    "recentPatients": {
+      "title": "Recent patients"
+    }
     "switchTo": "العربية",
     "ariaLabel": "Change language to Arabic"
   },
@@ -48,4 +104,4 @@
     "copyright": "midiLog - Graduation Project",
     "tagline": "Prototype with sample data only, not for patient use"
   }
-}
+}   
