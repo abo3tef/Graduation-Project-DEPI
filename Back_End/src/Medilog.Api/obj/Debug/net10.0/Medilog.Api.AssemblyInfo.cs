@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Medilog.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e08a80e71a8641f4a9e05e7111dde05a992ec7b4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2013045e19a092a35da43801318036da1b46d7cf")]
 [assembly: System.Reflection.AssemblyProductAttribute("Medilog.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Medilog.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
