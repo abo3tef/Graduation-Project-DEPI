@@ -157,7 +157,8 @@
     "login": "Log in"
   },
   "language": {
-    "switchTo": "العربية"
+    "switchTo": "العربية",
+    "ariaLabel": "Change language to Arabic"
   },
   "shell": {
     "brand": "Medical Record",
@@ -213,8 +214,6 @@
     "recentPatients": {
       "title": "Recent patients"
     }
-    "switchTo": "العربية",
-    "ariaLabel": "Change language to Arabic"
   },
   "navigation": {
     "brand": "midiLog",
