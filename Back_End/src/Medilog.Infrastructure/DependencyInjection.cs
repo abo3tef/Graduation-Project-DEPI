@@ -1,7 +1,9 @@
 using Medilog.Application.Common.Interfaces;
+using Medilog.Application.Interfaces;
 using Medilog.Infrastructure.Auth;
 using Medilog.Infrastructure.Persistence;
 using Medilog.Infrastructure.Repositories;
+using Medilog.Infrastructure.Security;
 using Medilog.Infrastructure.Time;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +33,14 @@ public static class DependencyInjection
         services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 
+        return services;
+    }
+
+    /// <summary>Registers Infrastructure security and scope services (Member 5).</summary>
+    public static IServiceCollection AddInfrastructureSecurity(this IServiceCollection services)
+    {
+        services.AddScoped<IAccessScopeStore, AccessScopeStore>();
+        
         return services;
     }
 }

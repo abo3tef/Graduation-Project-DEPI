@@ -2,15 +2,18 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.RateLimiting;
 using Medilog.Api.Auth;
+using Medilog.Api.Authorization;
 using Medilog.Api.Endpoints;
 using Medilog.Api.Middleware;
 using Medilog.Application;
 using Medilog.Application.Common.Interfaces;
+using Medilog.Application.Interfaces;
+using Medilog.Application.Services;
 using Medilog.Infrastructure;
 using Medilog.Infrastructure.Auth;
 using Medilog.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -112,6 +115,14 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy("SecretaryOnly", policy => policy.RequireRole("Secretary", "Admin"))
     .AddPolicy("DoctorOnly", policy => policy.RequireRole("Doctor", "Admin"));
 
+// Role-based and secretary-scope authorization (Member 5).
+// Authentication itself (scheme, token validation) is registered by the auth implementation.
+builder.Services.AddInfrastructureSecurity();
+builder.Services.AddScoped<IResourceAccessService, ResourceAccessService>();
+builder.Services.AddScoped<IAuthorizationHandler, MedilogRoleHandler>();
+builder.Services.AddSingleton<IAuthorizationMiddlewareResultHandler, MedilogAuthorizationResultHandler>();
+builder.Services.AddAuthorizationBuilder().AddMedilogPolicies();
+
 var app = builder.Build();
 
 app.UseExceptionHandler();
@@ -134,6 +145,7 @@ api.MapAuthEndpoints();
 api.MapPatientEndpoints();
 api.MapAppointmentEndpoints();
 api.MapDashboardEndpoints();
+api.MapSecretaryEndpoints(); // إندبوينت السكرتير المضافة بواسطة زميلك
 
 app.MapGet("/health", () => Results.Ok(new { status = "ok" }))
     .AllowAnonymous()
