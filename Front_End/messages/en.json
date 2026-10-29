@@ -173,6 +173,16 @@
       "label": "Switch role",
       "doctor": "Doctor",
       "secretary": "Secretary"
+    },
+    "topbar": {
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu",
+      "collapseSidebar": "Collapse sidebar",
+      "expandSidebar": "Expand sidebar",
+      "notifications": "Notifications",
+      "notificationsAria": "View notifications",
+      "notificationsUnread": "You have unread notifications",
+      "rolePreviewNote": "Role preview only. Actual permissions follow your account."
     }
   },
   "status": {
@@ -188,16 +198,31 @@
     "lastVisit": "Last visit",
     "demoData": "Demo data.",
     "dismiss": "Dismiss alert",
-    "viewAll": "View all"
+    "viewAll": "View all",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving...",
+    "search": "Search",
+    "clear": "Clear",
+    "clearSearch": "Clear search",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "of": "of",
+    "back": "Back",
+    "today": "Today",
+    "optional": "Optional",
+    "age": "{age, plural, one {# year} other {# years}}"
   },
   "dashboard": {
     "title": "Dashboard",
-    "subtitle": "A quick look at today’s activity",
-    "pendingBanner": "{count, plural, one {# appointment is} other {# appointments are}} still marked “Scheduled”. Update the status after the visit.",
+    "subtitle": "A quick look at the clinic activity today.",
+    "pendingBanner": "{count, plural, one {# appointment is} other {# appointments are}} still marked as scheduled. Update the status after the visit.",
     "stats": {
       "totalPatients": "Total patients",
       "weeklyVisits": "Visits this week",
-      "todayAppointments": "Today’s appointments",
+      "todayAppointments": "Today's appointments",
       "newRecords": "New records"
     },
     "visits": {
@@ -205,15 +230,23 @@
       "week": "This week",
       "fourWeeks": "Last 4 weeks",
       "rangeLabel": "Display range",
-      "unit": "visits"
+      "unit": "visits",
+      "axis": "Number of visits",
+      "tooltip": "{day}: {count, plural, one {# visit} other {# visits}}"
     },
     "today": {
-      "title": "Today’s appointments",
-      "empty": "No appointments today."
+      "title": "Today's appointments",
+      "empty": "No appointments today.",
+      "viewAll": "View all appointments"
     },
     "recentPatients": {
-      "title": "Recent patients"
-    }
+      "title": "Recent patients",
+      "empty": "No patients yet.",
+      "viewAll": "View all patients"
+    },
+    "greeting": "Welcome, {name}",
+    "trendAria": "Last 7 days trend",
+    "demoFooter": "Demo data for display only. Not real patient data."
   },
   "navigation": {
     "brand": "midiLog",
@@ -249,5 +282,223 @@
     },
     "copyright": "midiLog - Graduation Project",
     "tagline": "Prototype with sample data only, not for patient use"
+  },
+  "auth": {
+    "brand": "midiLog",
+    "tagline": "Organized records, appointments without conflicts.",
+    "title": "Log in",
+    "subtitle": "Enter your account details to open the dashboard.",
+    "email": "Email",
+    "emailPlaceholder": "name@clinic.com",
+    "password": "Password",
+    "passwordPlaceholder": "••••••••",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "submit": "Log in",
+    "submitting": "Signing in...",
+    "demoTitle": "Demo accounts",
+    "demoHint": "Pick an account to fill the credentials, then try both roles.",
+    "demoSecretary": "Secretary",
+    "demoDoctor": "Doctor",
+    "backHome": "Back to the home page",
+    "errors": {
+      "required": "Enter your email and password.",
+      "invalidCredentials": "The email or password is incorrect.",
+      "inactive": "This account is inactive.",
+      "rateLimited": "Too many attempts. Try again in a minute.",
+      "generic": "Could not sign you in. Try again."
+    }
+  },
+  "roles": {
+    "doctor": "Doctor",
+    "secretary": "Secretary",
+    "admin": "Admin"
+  },
+  "patients": {
+    "title": "Patients",
+    "subtitle": "Search patient records and add new patients.",
+    "add": "Add patient",
+    "searchPlaceholder": "Search by name, phone, or code...",
+    "searchLabel": "Search patients",
+    "clearSearch": "Clear search",
+    "emptyTitle": "No patients yet",
+    "emptyDescription": "Add the first patient to start the clinic record.",
+    "noResultsTitle": "No results",
+    "noResultsDescription": "Try another name or a different phone number.",
+    "columns": {
+      "name": "Patient",
+      "phone": "Phone",
+      "code": "Code",
+      "age": "Age",
+      "gender": "Gender",
+      "lastVisit": "Last visit"
+    },
+    "sortBy": "Sort by",
+    "sortAscending": "Sort ascending",
+    "sortDescending": "Sort descending",
+    "showing": "Showing {from}–{to} of {total}",
+    "pageLabel": "Page {page} of {pages}",
+    "gender": {
+      "female": "Female",
+      "male": "Male",
+      "unspecified": "Unspecified"
+    },
+    "form": {
+      "title": "Add a new patient",
+      "description": "Core details only. You can complete the file later.",
+      "name": "Full name",
+      "namePlaceholder": "For example: Mona Saeed",
+      "phone": "Phone number",
+      "phonePlaceholder": "01xxxxxxxxx",
+      "birthDate": "Date of birth",
+      "gender": "Gender",
+      "genderPlaceholder": "Choose gender",
+      "notes": "Notes",
+      "notesPlaceholder": "Short medical notes (optional)",
+      "submit": "Save patient",
+      "saving": "Saving...",
+      "errors": {
+        "required": "Complete the required fields.",
+        "name": "Enter a name of at least 2 characters.",
+        "phone": "Enter a valid Egyptian mobile number (e.g. 01012345678).",
+        "birthDate": "Enter a valid date of birth.",
+        "birthDateFuture": "Date of birth cannot be in the future.",
+        "gender": "Choose a gender.",
+        "notes": "The notes are too long.",
+        "duplicatePhone": "A patient already uses this phone number.",
+        "generic": "Could not save the patient. Try again."
+      }
+    },
+    "detail": {
+      "back": "Back to patients",
+      "fileTitle": "Patient file",
+      "infoTitle": "Core details",
+      "notesTitle": "Notes",
+      "noNotes": "No notes recorded for this patient.",
+      "registered": "Registered",
+      "code": "Patient code",
+      "phone": "Phone",
+      "birthDate": "Date of birth",
+      "age": "Age",
+      "gender": "Gender",
+      "lastVisit": "Last visit"
+    }
+  },
+  "appointments": {
+    "title": "Appointments",
+    "subtitle": "Organize clinic appointments and follow their status.",
+    "add": "Book appointment",
+    "today": "Today",
+    "week": {
+      "previous": "Previous week",
+      "next": "Next week",
+      "label": "Appointment week"
+    },
+    "dayAria": "Choose a day",
+    "dayCount": "{count, plural, one {# appointment} other {# appointments}}",
+    "emptyTitle": "No appointments on this day.",
+    "emptyDescription": "Choose another day or book a new appointment.",
+    "doctor": "Doctor",
+    "duration": "{minutes} min",
+    "visitLinked": "Visit linked",
+    "actionsMenu": "Appointment actions",
+    "actions": {
+      "edit": "Edit appointment",
+      "confirm": "Confirm appointment",
+      "complete": "Complete visit",
+      "noShow": "Mark no-show",
+      "cancel": "Cancel appointment",
+      "linkVisit": "Link visit",
+      "delete": "Delete appointment"
+    },
+    "reasons": {
+      "bp-followup": "Blood pressure follow-up",
+      "new-checkup": "New check-up",
+      "lab-results": "Lab results review",
+      "follow-up": "Follow-up"
+    },
+    "form": {
+      "titleAdd": "Book a new appointment",
+      "titleEdit": "Edit appointment",
+      "description": "Choose the patient and a suitable clinic time.",
+      "patient": "Patient",
+      "patientPlaceholder": "Search by name, code, or phone",
+      "noResults": "No matching results.",
+      "date": "Date",
+      "time": "Time",
+      "duration": "Duration",
+      "minutes": "{minutes} min",
+      "reason": "Reason for visit",
+      "reasonPlaceholder": "Choose a reason",
+      "notes": "Notes",
+      "notesPlaceholder": "Any extra details for the doctor",
+      "submitCreate": "Confirm booking",
+      "submitEdit": "Save changes",
+      "saving": "Saving...",
+      "delete": "Delete appointment",
+      "deleting": "Deleting...",
+      "deleteConfirm": "Delete this appointment permanently?",
+      "deleteHint": "This action cannot be undone.",
+      "errors": {
+        "patient": "Choose a patient.",
+        "date": "Enter a valid date.",
+        "time": "Enter a valid time.",
+        "duration": "Choose a valid duration.",
+        "reason": "Choose a reason for the visit.",
+        "notes": "The notes are too long.",
+        "conflict": "This time overlaps another appointment. Pick another time.",
+        "closed": "A closed appointment cannot be edited.",
+        "generic": "Could not save the appointment. Try again."
+      }
+    },
+    "cancel": {
+      "title": "Cancel appointment",
+      "description": "The appointment is cancelled but kept in the record.",
+      "reason": "Cancellation reason",
+      "placeholder": "Write the cancellation reason",
+      "submit": "Confirm cancellation",
+      "submitting": "Cancelling...",
+      "errors": {
+        "cancellationReason": "Write the cancellation reason.",
+        "generic": "Could not cancel the appointment."
+      }
+    },
+    "visit": {
+      "title": "Link a visit",
+      "description": "A visit will be created and linked to this appointment.",
+      "complaint": "Chief complaint",
+      "complaintPlaceholder": "For example: blood pressure follow-up",
+      "notes": "Clinical notes",
+      "notesPlaceholder": "Diagnosis and notes...",
+      "submit": "Save visit",
+      "submitting": "Saving...",
+      "errors": {
+        "generic": "Could not link the visit."
+      }
+    },
+    "errors": {
+      "generic": "Could not complete the action. Try again.",
+      "status": "Could not update the appointment status.",
+      "notConfirmed": "Confirm the appointment before linking a visit.",
+      "visitAlreadyLinked": "A visit is already linked to this appointment."
+    },
+    "note": {
+      "title": "Quick notes",
+      "body": "All appointments are shown in Cairo time (Africa/Cairo).",
+      "point1": "Two overlapping appointments cannot be booked for the doctor.",
+      "point2": "The doctor can confirm, complete, or mark an appointment as no-show.",
+      "point3": "Cancelling keeps the appointment in the record with its reason."
+    }
+  },
+  "errors": {
+    "title": "Could not load the page",
+    "description": "Something went wrong while fetching data. Try again.",
+    "retry": "Try again",
+    "backDashboard": "Back to dashboard",
+    "network": "Could not reach the API. Make sure the backend is running.",
+    "sessionExpired": "Your session has expired. Log in again.",
+    "unauthorized": "You do not have permission for this action.",
+    "notFoundTitle": "Page not found",
+    "notFoundDescription": "The link may be old or the record is no longer available."
   }
-}   
+}

@@ -5,4 +5,8 @@
     <Project Path="src/Medilog.Domain/Medilog.Domain.csproj" />
     <Project Path="src/Medilog.Infrastructure/Medilog.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Medilog.Api.Tests/Medilog.Api.Tests.csproj" />
+    <Project Path="tests/Medilog.Application.Tests/Medilog.Application.Tests.csproj" />
+  </Folder>
 </Solution>

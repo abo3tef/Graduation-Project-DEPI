@@ -3,7 +3,6 @@ using System;
 using Medilog.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -16,35 +15,31 @@ namespace Medilog.Infrastructure.Persistence.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "10.0.14");
 
             modelBuilder.Entity("Medilog.Domain.Entities.Allergy", b =>
                 {
                     b.Property<Guid>("AllergyId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("AllergyName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .HasColumnType("longtext");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("longtext");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("PatientId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Severity")
                         .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("AllergyId");
 
@@ -57,75 +52,78 @@ namespace Medilog.Infrastructure.Persistence.Migrations
                 {
                     b.Property<Guid>("AppointmentId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateOnly>("AppointmentDate")
-                        .HasColumnType("date");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("CancellationReason")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("DoctorId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
-                    b.Property<TimeOnly?>("EndTime")
-                        .HasColumnType("time(6)");
+                    b.Property<int>("DurationMinutes")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(1000)
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("PatientId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Reason")
-                        .HasColumnType("longtext");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
 
-                    b.Property<TimeOnly>("StartTime")
-                        .HasColumnType("time(6)");
+                    b.Property<DateTime>("StartsAt")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("AppointmentId");
 
-                    b.HasIndex("PatientId", "AppointmentDate");
+                    b.HasIndex("PatientId");
 
-                    b.HasIndex("DoctorId", "AppointmentDate", "StartTime");
+                    b.HasIndex("StartsAt");
 
-                    b.ToTable("Appointments");
+                    b.HasIndex("DoctorId", "StartsAt");
+
+                    b.ToTable("Appointments", (string)null);
                 });
 
             modelBuilder.Entity("Medilog.Domain.Entities.ChronicCondition", b =>
                 {
                     b.Property<Guid>("ConditionId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ConditionName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateOnly?>("DiagnosisDate")
-                        .HasColumnType("date");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("longtext");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("PatientId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Status")
                         .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ConditionId");
 
@@ -138,24 +136,24 @@ namespace Medilog.Infrastructure.Persistence.Migrations
                 {
                     b.Property<Guid>("DiagnosisId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .HasColumnType("longtext");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateOnly>("DiagnosisDate")
-                        .HasColumnType("date");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("DiagnosisName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("PatientId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("VisitId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("DiagnosisId");
 
@@ -166,86 +164,41 @@ namespace Medilog.Infrastructure.Persistence.Migrations
                     b.ToTable("Diagnoses");
                 });
 
-            modelBuilder.Entity("Medilog.Domain.Entities.Doctor", b =>
-                {
-                    b.Property<Guid>("DoctorId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("AccountStatus")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(254)
-                        .HasColumnType("varchar(254)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
-
-                    b.Property<string>("Phone")
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)");
-
-                    b.Property<string>("Specialization")
-                        .HasMaxLength(150)
-                        .HasColumnType("varchar(150)");
-
-                    b.HasKey("DoctorId");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.ToTable("Doctors");
-                });
-
             modelBuilder.Entity("Medilog.Domain.Entities.LaboratoryResult", b =>
                 {
                     b.Property<Guid>("ResultId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("longtext");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("PatientId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ReferenceRange")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateOnly>("TestDate")
-                        .HasColumnType("date");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("TestName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Unit")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("Value")
                         .HasPrecision(18, 4)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid?>("VisitId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ResultId");
 
@@ -260,34 +213,34 @@ namespace Medilog.Infrastructure.Persistence.Migrations
                 {
                     b.Property<Guid>("DocumentId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .HasColumnType("longtext");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("FileName")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasMaxLength(1000)
-                        .HasColumnType("varchar(1000)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("PatientId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("varchar(10)");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("UploadDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("UploadedBy")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("DocumentId");
 
@@ -302,26 +255,27 @@ namespace Medilog.Infrastructure.Persistence.Migrations
                 {
                     b.Property<Guid>("NoteId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("DoctorId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("NoteContent")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(4000)
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("PatientId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid?>("VisitId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("NoteId");
 
@@ -334,78 +288,39 @@ namespace Medilog.Infrastructure.Persistence.Migrations
                     b.ToTable("MedicalNotes");
                 });
 
-            modelBuilder.Entity("Medilog.Domain.Entities.MedicalVisit", b =>
-                {
-                    b.Property<Guid>("VisitId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid?>("AppointmentId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("ChiefComplaint")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ClinicalNotes")
-                        .HasColumnType("longtext");
-
-                    b.Property<Guid>("DoctorId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("PatientId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("Symptoms")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("VisitDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("VisitId");
-
-                    b.HasIndex("AppointmentId")
-                        .IsUnique();
-
-                    b.HasIndex("DoctorId");
-
-                    b.HasIndex("PatientId", "VisitDate");
-
-                    b.ToTable("MedicalVisits");
-                });
-
             modelBuilder.Entity("Medilog.Domain.Entities.Medication", b =>
                 {
                     b.Property<Guid>("MedicationId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Dosage")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Duration")
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Frequency")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Instructions")
-                        .HasColumnType("longtext");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("MedicationName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("PatientId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("VisitId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("MedicationId");
 
@@ -420,145 +335,190 @@ namespace Medilog.Infrastructure.Persistence.Migrations
                 {
                     b.Property<Guid>("PatientId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("Address")
-                        .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
+                    b.Property<DateOnly>("BirthDate")
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("BloodType")
-                        .HasMaxLength(10)
-                        .HasColumnType("varchar(10)");
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid>("DoctorId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("EmergencyContact")
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FullNameEn")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Gender")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(2000)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Phone")
                         .HasMaxLength(30)
-                        .HasColumnType("varchar(30)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("PatientId");
 
-                    b.HasIndex("DoctorId");
+                    b.HasIndex("Code")
+                        .IsUnique();
 
-                    b.ToTable("Patients");
+                    b.HasIndex("FullName");
+
+                    b.HasIndex("Phone");
+
+                    b.ToTable("Patients", (string)null);
                 });
 
-            modelBuilder.Entity("Medilog.Domain.Entities.Secretary", b =>
+            modelBuilder.Entity("Medilog.Domain.Entities.User", b =>
                 {
-                    b.Property<Guid>("SecretaryId")
+                    b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("AccountStatus")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(254)
-                        .HasColumnType("varchar(254)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FullNameEn")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Phone")
                         .HasMaxLength(30)
-                        .HasColumnType("varchar(30)");
+                        .HasColumnType("TEXT");
 
-                    b.HasKey("SecretaryId");
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Specialization")
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserId");
 
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Secretaries");
+                    b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("Medilog.Domain.Entities.Visit", b =>
+                {
+                    b.Property<Guid>("VisitId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("AppointmentId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ChiefComplaint")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ClinicalNotes")
+                        .HasMaxLength(4000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Symptoms")
+                        .HasMaxLength(2000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("VisitedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("VisitId");
+
+                    b.HasIndex("AppointmentId")
+                        .IsUnique();
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("VisitedAt");
+
+                    b.HasIndex("PatientId", "VisitedAt");
+
+                    b.ToTable("Visits", (string)null);
                 });
 
             modelBuilder.Entity("Medilog.Domain.Entities.VitalSigns", b =>
                 {
                     b.Property<Guid>("VitalSignsId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("BloodPressure")
                         .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("HeartRate")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<decimal?>("Height")
                         .HasPrecision(6, 2)
-                        .HasColumnType("decimal(6,2)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("RespiratoryRate")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("SpO2")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<decimal?>("Temperature")
                         .HasPrecision(5, 2)
-                        .HasColumnType("decimal(5,2)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("VisitId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal?>("Weight")
                         .HasPrecision(7, 2)
-                        .HasColumnType("decimal(7,2)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("VitalSignsId");
 
                     b.HasIndex("VisitId");
 
                     b.ToTable("VitalSigns");
-                });
-
-            modelBuilder.Entity("SecretaryDoctors", b =>
-                {
-                    b.Property<Guid>("DoctorsDoctorId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("SecretariesSecretaryId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("DoctorsDoctorId", "SecretariesSecretaryId");
-
-                    b.HasIndex("SecretariesSecretaryId");
-
-                    b.ToTable("SecretaryDoctors");
                 });
 
             modelBuilder.Entity("Medilog.Domain.Entities.Allergy", b =>
@@ -574,14 +534,14 @@ namespace Medilog.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Medilog.Domain.Entities.Appointment", b =>
                 {
-                    b.HasOne("Medilog.Domain.Entities.Doctor", "Doctor")
-                        .WithMany()
+                    b.HasOne("Medilog.Domain.Entities.User", "Doctor")
+                        .WithMany("Appointments")
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Medilog.Domain.Entities.Patient", "Patient")
-                        .WithMany()
+                        .WithMany("Appointments")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -610,7 +570,7 @@ namespace Medilog.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Medilog.Domain.Entities.MedicalVisit", "Visit")
+                    b.HasOne("Medilog.Domain.Entities.Visit", "Visit")
                         .WithMany("Diagnoses")
                         .HasForeignKey("VisitId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -629,7 +589,7 @@ namespace Medilog.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Medilog.Domain.Entities.MedicalVisit", "Visit")
+                    b.HasOne("Medilog.Domain.Entities.Visit", "Visit")
                         .WithMany("LaboratoryResults")
                         .HasForeignKey("VisitId")
                         .OnDelete(DeleteBehavior.SetNull);
@@ -647,7 +607,7 @@ namespace Medilog.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Medilog.Domain.Entities.Doctor", "Uploader")
+                    b.HasOne("Medilog.Domain.Entities.User", "Uploader")
                         .WithMany()
                         .HasForeignKey("UploadedBy")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -660,7 +620,7 @@ namespace Medilog.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Medilog.Domain.Entities.MedicalNote", b =>
                 {
-                    b.HasOne("Medilog.Domain.Entities.Doctor", "Doctor")
+                    b.HasOne("Medilog.Domain.Entities.User", "Doctor")
                         .WithMany()
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -672,7 +632,7 @@ namespace Medilog.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Medilog.Domain.Entities.MedicalVisit", "Visit")
+                    b.HasOne("Medilog.Domain.Entities.Visit", "Visit")
                         .WithMany("MedicalNotes")
                         .HasForeignKey("VisitId")
                         .OnDelete(DeleteBehavior.SetNull);
@@ -684,21 +644,40 @@ namespace Medilog.Infrastructure.Persistence.Migrations
                     b.Navigation("Visit");
                 });
 
-            modelBuilder.Entity("Medilog.Domain.Entities.MedicalVisit", b =>
+            modelBuilder.Entity("Medilog.Domain.Entities.Medication", b =>
+                {
+                    b.HasOne("Medilog.Domain.Entities.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Medilog.Domain.Entities.Visit", "Visit")
+                        .WithMany("Medications")
+                        .HasForeignKey("VisitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+
+                    b.Navigation("Visit");
+                });
+
+            modelBuilder.Entity("Medilog.Domain.Entities.Visit", b =>
                 {
                     b.HasOne("Medilog.Domain.Entities.Appointment", "Appointment")
-                        .WithOne("MedicalVisit")
-                        .HasForeignKey("Medilog.Domain.Entities.MedicalVisit", "AppointmentId")
+                        .WithOne("Visit")
+                        .HasForeignKey("Medilog.Domain.Entities.Visit", "AppointmentId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("Medilog.Domain.Entities.Doctor", "Doctor")
-                        .WithMany()
+                    b.HasOne("Medilog.Domain.Entities.User", "Doctor")
+                        .WithMany("Visits")
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Medilog.Domain.Entities.Patient", "Patient")
-                        .WithMany()
+                        .WithMany("Visits")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -710,39 +689,9 @@ namespace Medilog.Infrastructure.Persistence.Migrations
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("Medilog.Domain.Entities.Medication", b =>
-                {
-                    b.HasOne("Medilog.Domain.Entities.Patient", "Patient")
-                        .WithMany()
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Medilog.Domain.Entities.MedicalVisit", "Visit")
-                        .WithMany("Medications")
-                        .HasForeignKey("VisitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Patient");
-
-                    b.Navigation("Visit");
-                });
-
-            modelBuilder.Entity("Medilog.Domain.Entities.Patient", b =>
-                {
-                    b.HasOne("Medilog.Domain.Entities.Doctor", "Doctor")
-                        .WithMany("Patients")
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Doctor");
-                });
-
             modelBuilder.Entity("Medilog.Domain.Entities.VitalSigns", b =>
                 {
-                    b.HasOne("Medilog.Domain.Entities.MedicalVisit", "Visit")
+                    b.HasOne("Medilog.Domain.Entities.Visit", "Visit")
                         .WithMany("VitalSigns")
                         .HasForeignKey("VisitId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -751,32 +700,26 @@ namespace Medilog.Infrastructure.Persistence.Migrations
                     b.Navigation("Visit");
                 });
 
-            modelBuilder.Entity("SecretaryDoctors", b =>
-                {
-                    b.HasOne("Medilog.Domain.Entities.Doctor", null)
-                        .WithMany()
-                        .HasForeignKey("DoctorsDoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Medilog.Domain.Entities.Secretary", null)
-                        .WithMany()
-                        .HasForeignKey("SecretariesSecretaryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Medilog.Domain.Entities.Appointment", b =>
                 {
-                    b.Navigation("MedicalVisit");
+                    b.Navigation("Visit");
                 });
 
-            modelBuilder.Entity("Medilog.Domain.Entities.Doctor", b =>
+            modelBuilder.Entity("Medilog.Domain.Entities.Patient", b =>
                 {
-                    b.Navigation("Patients");
+                    b.Navigation("Appointments");
+
+                    b.Navigation("Visits");
                 });
 
-            modelBuilder.Entity("Medilog.Domain.Entities.MedicalVisit", b =>
+            modelBuilder.Entity("Medilog.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Appointments");
+
+                    b.Navigation("Visits");
+                });
+
+            modelBuilder.Entity("Medilog.Domain.Entities.Visit", b =>
                 {
                     b.Navigation("Diagnoses");
 

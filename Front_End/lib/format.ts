@@ -2,7 +2,6 @@ import type { Locale } from "@/i18n/routing";
 
 const CLINIC_TIME_ZONE = "Africa/Cairo";
 
-
 const INTL_LOCALES: Record<Locale, string> = {
   ar: "ar-EG-u-nu-latn",
   en: "en-GB",
@@ -54,5 +53,20 @@ export function formatLongDate(iso: string, locale: Locale): string {
 
 /** First character of a name, for avatar circles. Works for Arabic and Latin. */
 export function getInitial(fullName: string): string {
-  return Array.from(fullName.trim())[0] ?? "";
+  return Array.from(fullName.trim())[0]?.toUpperCase() ?? "";
+}
+
+/** Western digits regardless of locale, for ages, counts and codes. */
+export function formatNumber(value: number, locale: Locale): string {
+  return new Intl.NumberFormat(INTL_LOCALES[locale], {
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
+export function formatDuration(minutes: number, locale: Locale): string {
+  return new Intl.NumberFormat(INTL_LOCALES[locale], {
+    style: "unit",
+    unit: "minute",
+    unitDisplay: "short",
+  }).format(minutes);
 }
