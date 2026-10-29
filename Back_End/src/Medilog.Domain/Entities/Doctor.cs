@@ -1,4 +1,4 @@
-﻿namespace Medilog.Domain.Entities;
+namespace Medilog.Domain.Entities;
 
 public class Doctor
 {
@@ -12,4 +12,5 @@ public class Doctor
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public ICollection<Patient> Patients { get; set; } = new List<Patient>();
+    public ICollection<Secretary> Secretaries { get; set; } = new List<Secretary>();
 }

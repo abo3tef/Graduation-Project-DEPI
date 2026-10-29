@@ -1,13 +1,160 @@
 {
   "home": {
-    "eyebrow": "Smart Medical Records Platform",
-    "title": "A clearer workspace for doctors.",
-    "description": "One place to manage patient records and appointments, and review medical histories securely.",
-    "scopeLabel": "Platform areas",
-    "patients": "Patients",
-    "appointments": "Appointments",
-    "medicalRecords": "Medical records",
-    "timeline": "Medical timeline"
+    "eyebrow": "Your patient care, all in one place",
+    "heroTitle": "Patient records, appointments,",
+    "heroHighlight": "all in one place",
+    "heroDescription": "A workspace for doctors and their staff, with complete patient records and an appointment schedule without conflicts.",
+    "createAccount": "Create a doctor account",
+    "watchDemo": "See how it works",
+    "prototypeNote": "Illustrations and data on this page are samples.",
+    "categoriesLabel": "Platform sections",
+    "category": {
+      "search": "Find a patient",
+      "appointments": "Appointments",
+      "patients": "Patients",
+      "records": "Records",
+      "diagnoses": "Diagnoses",
+      "medications": "Medications",
+      "allergies": "Allergies",
+      "vitals": "Vitals",
+      "timeline": "Timeline",
+      "documents": "Documents",
+      "permissions": "Permissions"
+    },
+    "journeyTitle": "The patient journey, all in one place",
+    "journeyDescription": "From booking through follow-up, each step stays organized for your care team.",
+    "journey": {
+      "appointment": {
+        "title": "Appointment",
+        "description": "Staff book visits and organize the doctor schedule."
+      },
+      "visit": {
+        "title": "Visit",
+        "description": "Record symptoms and vitals, linked to the appointment."
+      },
+      "diagnosis": {
+        "title": "Diagnosis and care",
+        "description": "Manage diagnoses, prescriptions, tests, and documents."
+      },
+      "followup": {
+        "title": "Follow-up",
+        "description": "Review the full medical history in timeline order."
+      }
+    },
+    "recordTitle": "A complete record for every patient",
+    "recordDescription": "All patient details in one place, with allergies easy to spot.",
+    "recordPoint1": "Core details and emergency contact information",
+    "recordPoint2": "Allergies with medication, dose, and frequency details",
+    "recordPoint3": "Medications, tests, PDFs, and images",
+    "timelineTitle": "A timeline of medical events",
+    "timelineDescription": "Visits, medications, diagnoses, tests, documents, and notes in one chronological view. Open any event to see its details.",
+    "scheduleTitle": "Appointments without conflicts",
+    "scheduleDescription": "Staff can review each doctor daily or weekly schedule and patient list.",
+    "schedulePoint1": "Track booked, confirmed, completed, cancelled, and missed visits",
+    "schedulePoint2": "Record cancellation reasons",
+    "schedulePoint3": "Search by patient name or ID",
+    "featuresTitle": "Every medical detail has its place",
+    "featuresDescription": "Keep each record section organized and connected to the timeline.",
+    "feature": {
+      "visits": {
+        "title": "Visits",
+        "description": "Diagnoses, symptoms, and clinical notes."
+      },
+      "diagnoses": {
+        "title": "Diagnoses",
+        "description": "Consistent diagnoses linked to visit history."
+      },
+      "medications": {
+        "title": "Medications and prescriptions",
+        "description": "Clear doses, duration, frequency, and instructions."
+      },
+      "allergies": {
+        "title": "Allergies",
+        "description": "Name, strength, reaction type, and date recorded."
+      },
+      "vitals": {
+        "title": "Vital signs",
+        "description": "Blood pressure, pulse, temperature, breathing, weight, height, and SpO₂."
+      },
+      "timeline": {
+        "title": "Connected sections",
+        "description": "Each event appears in chronological order."
+      },
+      "documents": {
+        "title": "Documents",
+        "description": "View and download PNG, JPEG, JPG, and PDF files."
+      },
+      "appointments": {
+        "title": "Appointments",
+        "description": "Organize visits and follow their status."
+      }
+    },
+    "searchTitle": "Find any patient in seconds",
+    "searchDescription": "Search by part of a name, phone number, or patient ID.",
+    "searchPlaceholder": "For example: Saad, PT-0148, or 0100...",
+    "table": {
+      "patient": "Patient",
+      "ageGender": "Age and gender",
+      "lastVisit": "Last visit"
+    },
+    "patients": {
+      "patient1": {
+        "name": "Souad Mahmoud Hassan",
+        "details": "34 years · Female",
+        "date": "Sep 12"
+      },
+      "patient2": {
+        "name": "Mona Saeed",
+        "details": "41 years · Female",
+        "date": "Oct 10"
+      },
+      "patient3": {
+        "name": "Karim Adel",
+        "details": "33 years · Male",
+        "date": "No visits yet"
+      },
+      "patient4": {
+        "name": "Hala Youssef",
+        "details": "62 years · Female",
+        "date": "Oct 3"
+      },
+      "patient5": {
+        "name": "Ahmed Fathy",
+        "details": "47 years · Male",
+        "date": "Sep 28"
+      }
+    },
+    "sampleNote": "Sample data for display only.",
+    "traditionalTitle": "The traditional way",
+    "traditional1": "Paper records",
+    "traditional2": "Scattered, duplicated, unorganized files",
+    "traditional3": "Hard to find the right information when needed",
+    "platformTitle": "With the medical record",
+    "platform1": "One organized record per patient",
+    "platform2": "Quick search by name or patient ID",
+    "platform3": "Complete medical history in one timeline",
+    "securityTitle": "Patient privacy comes first",
+    "securityDescription": "Permissions and security are built into the system.",
+    "security": {
+      "permissions": {
+        "title": "Role-based access",
+        "description": "Each user sees what their role allows."
+      },
+      "isolation": {
+        "title": "Record isolation",
+        "description": "Each doctor sees only their own patients."
+      },
+      "passwords": {
+        "title": "Encrypted passwords",
+        "description": "Passwords are stored as hashes."
+      },
+      "https": {
+        "title": "HTTPS connection",
+        "description": "Data is sent securely."
+      }
+    },
+    "ctaTitle": "Ready to organize your clinic?",
+    "login": "Log in"
   },
   "language": {
     "switchTo": "العربية",
