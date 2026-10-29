@@ -55,6 +55,7 @@ export async function loginAction(
   }
 
   redirect({ href: "/dashboard", locale });
+  return {};
 }
 
 export async function logoutAction(formData: FormData): Promise<void> {

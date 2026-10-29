@@ -172,7 +172,8 @@
     "roleSwitcher": {
       "label": "تبديل الدور",
       "doctor": "الطبيب",
-      "secretary": "السكرتارية"
+      "secretary": "السكرتارية",
+      "admin": "مدير النظام"
     },
     "topbar": {
       "openMenu": "فتح القائمة",
