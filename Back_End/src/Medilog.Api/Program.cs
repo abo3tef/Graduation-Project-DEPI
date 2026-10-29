@@ -1,23 +1,119 @@
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.RateLimiting;
+using Medilog.Api.Auth;
 using Medilog.Api.Authorization;
 using Medilog.Api.Endpoints;
+using Medilog.Api.Middleware;
+using Medilog.Application;
+using Medilog.Application.Common.Interfaces;
 using Medilog.Application.Interfaces;
 using Medilog.Application.Services;
 using Medilog.Infrastructure;
+using Medilog.Infrastructure.Auth;
 using Medilog.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUser, HttpCurrentUser>();
+builder.Services.AddScoped<ILanguageContext, AcceptLanguageContext>();
+builder.Services.AddScoped<ISystemSettings, SystemSettings>();
+
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<ApiExceptionHandler>();
+
 builder.Services.AddOpenApi();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' was not found.");
+var allowedOrigins = builder.Configuration
+    .GetSection("Cors:AllowedOrigins")
+    .Get<string[]>() ?? ["http://localhost:3000", "http://localhost:3001"];
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Frontend", policy =>
+        policy.WithOrigins(allowedOrigins)
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithExposedHeaders("X-Request-Id"));
+});
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    options.AddFixedWindowLimiter("auth", limiter =>
+    {
+        limiter.Window = TimeSpan.FromMinutes(1);
+        limiter.PermitLimit = 30;
+        limiter.QueueLimit = 0;
+    });
+
+    options.AddPolicy("login", context => RateLimitPartition.GetFixedWindowLimiter(
+        context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+        _ => new FixedWindowRateLimiterOptions
+        {
+            Window = TimeSpan.FromMinutes(1),
+            PermitLimit = 8,
+            QueueLimit = 0
+        }));
+});
+
+// The key is resolved at options-build time so test configuration overrides and
+// environment variables are honored. In Development an ephemeral key keeps the
+// demo secret-free; outside Development a real key must be configured.
+builder.Services.PostConfigure<JwtOptions>(options =>
+{
+    if (!string.IsNullOrWhiteSpace(options.Key))
+    {
+        return;
+    }
+
+    if (!builder.Environment.IsDevelopment())
+    {
+        throw new InvalidOperationException(
+            "Jwt:Key must be configured outside the Development environment.");
+    }
+
+    options.Key = Convert.ToBase64String(RandomNumberGenerator.GetBytes(48));
+});
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer();
+
+builder.Services
+    .AddOptions<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme)
+    .Configure<IOptions<JwtOptions>>((options, jwtOptions) =>
+    {
+        var jwt = jwtOptions.Value;
+        options.MapInboundClaims = false;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = jwt.Issuer,
+            ValidateAudience = true,
+            ValidAudience = jwt.Audience,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key!)),
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.FromMinutes(1),
+            NameClaimType = "name",
+            RoleClaimType = "role"
+        };
+    });
+
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("SecretaryOnly", policy => policy.RequireRole("Secretary", "Admin"))
+    .AddPolicy("DoctorOnly", policy => policy.RequireRole("Doctor", "Admin"));
 
 // Role-based and secretary-scope authorization (Member 5).
 // Authentication itself (scheme, token validation) is registered by the auth implementation.
@@ -29,41 +125,47 @@ builder.Services.AddAuthorizationBuilder().AddMedilogPolicies();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseExceptionHandler();
+app.UseMiddleware<StatusCodeProblemMiddleware>();
+app.UseMiddleware<SecurityHeadersMiddleware>();
+app.UseMiddleware<RequestLoggingMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
-
+app.UseCors("Frontend");
+app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapSecretaryEndpoints();
+var api = app.MapGroup("/api/v1").WithTags("Medilog");
+api.MapAuthEndpoints();
+api.MapPatientEndpoints();
+api.MapAppointmentEndpoints();
+api.MapDashboardEndpoints();
+api.MapSecretaryEndpoints(); // إندبوينت السكرتير المضافة بواسطة زميلك
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+app.MapGet("/health", () => Results.Ok(new { status = "ok" }))
+    .AllowAnonymous()
+    .WithTags("Health");
 
-app.MapGet("/weatherforecast", () =>
+await using (var scope = app.Services.CreateAsyncScope())
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await db.Database.MigrateAsync();
+
+    if (app.Configuration.GetValue<bool>("Demo:Enabled"))
+    {
+        await DbSeeder.SeedAsync(
+            db,
+            scope.ServiceProvider.GetRequiredService<IPasswordHasher>(),
+            scope.ServiceProvider.GetRequiredService<IClock>(),
+            CancellationToken.None);
+    }
+}
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+public partial class Program;

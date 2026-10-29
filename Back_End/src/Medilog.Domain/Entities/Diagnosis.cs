@@ -8,6 +8,6 @@ public class Diagnosis
     public string DiagnosisName { get; set; } = string.Empty;
     public string? Description { get; set; }
     public DateOnly DiagnosisDate { get; set; } = DateOnly.FromDateTime(DateTime.UtcNow);
-    public MedicalVisit Visit { get; set; } = null!;
+    public Visit Visit { get; set; } = null!;
     public Patient Patient { get; set; } = null!;
 }

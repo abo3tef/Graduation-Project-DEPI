@@ -12,5 +12,5 @@ public class LaboratoryResult
     public string? ReferenceRange { get; set; }
     public string? Notes { get; set; }
     public Patient Patient { get; set; } = null!;
-    public MedicalVisit? Visit { get; set; }
+    public Visit? Visit { get; set; }
 }

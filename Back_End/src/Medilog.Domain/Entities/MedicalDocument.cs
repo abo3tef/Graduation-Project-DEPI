@@ -13,5 +13,5 @@ public class MedicalDocument
     public DateTime UploadDate { get; set; } = DateTime.UtcNow;
     public string? Description { get; set; }
     public Patient Patient { get; set; } = null!;
-    public Doctor Uploader { get; set; } = null!;
+    public User Uploader { get; set; } = null!;
 }

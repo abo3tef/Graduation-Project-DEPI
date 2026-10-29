@@ -10,3 +10,15 @@ D:\New Life\Projects\DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\Medilog.
 D:\New Life\Projects\DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\refint\Medilog.Domain.dll
 D:\New Life\Projects\DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\Medilog.Domain.pdb
 D:\New Life\Projects\DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\ref\Medilog.Domain.dll
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\bin\Debug\net10.0\Medilog.Domain.deps.json
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\bin\Debug\net10.0\Medilog.Domain.dll
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\bin\Debug\net10.0\Medilog.Domain.pdb
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\Medilog.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\Medilog.Domain.AssemblyInfoInputs.cache
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\Medilog.Domain.AssemblyInfo.cs
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\Medilog.Domain.csproj.CoreCompileInputs.cache
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\Medilog.Domain.sourcelink.json
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\Medilog.Domain.dll
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\refint\Medilog.Domain.dll
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\Medilog.Domain.pdb
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\ref\Medilog.Domain.dll

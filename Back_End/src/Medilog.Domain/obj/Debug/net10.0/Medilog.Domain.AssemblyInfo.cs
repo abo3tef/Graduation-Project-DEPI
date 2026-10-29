@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Medilog.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ad4db6093153b2e847e3c70035e011a01d602f3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48bcdca4770353f56f4773af8ffc3b4bdea2adcb")]
 [assembly: System.Reflection.AssemblyProductAttribute("Medilog.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Medilog.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
