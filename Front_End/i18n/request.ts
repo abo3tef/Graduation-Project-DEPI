@@ -10,6 +10,53 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
   return {
     locale,
+    timeZone: "Africa/Cairo",
+    now: new Date(),
+    formats: {
+      dateTime: {
+        short: {
+          day: "numeric",
+          month: "short",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+          numberingSystem: "latn",
+        },
+        time: {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+          numberingSystem: "latn",
+        },
+        weekdayShort: {
+          weekday: "short",
+          numberingSystem: "latn",
+        },
+        dayMonth: {
+          day: "numeric",
+          month: "short",
+          numberingSystem: "latn",
+        },
+        fullDate: {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+          numberingSystem: "latn",
+        },
+        longDate: {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          numberingSystem: "latn",
+        },
+      },
+      number: {
+        integer: {
+          maximumFractionDigits: 0,
+          numberingSystem: "latn",
+        },
+      },
+    },
     messages: (await import(`../messages/${locale}.json`)).default,
   };
 });

@@ -11,5 +11,5 @@ public class VitalSigns
     public decimal? Weight { get; set; }
     public decimal? Height { get; set; }
     public int? SpO2 { get; set; }
-    public MedicalVisit Visit { get; set; } = null!;
+    public Visit Visit { get; set; } = null!;
 }

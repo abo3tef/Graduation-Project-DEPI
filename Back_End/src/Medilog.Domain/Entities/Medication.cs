@@ -10,6 +10,6 @@ public class Medication
     public string Frequency { get; set; } = string.Empty;
     public string? Duration { get; set; }
     public string? Instructions { get; set; }
-    public MedicalVisit Visit { get; set; } = null!;
+    public Visit Visit { get; set; } = null!;
     public Patient Patient { get; set; } = null!;
 }

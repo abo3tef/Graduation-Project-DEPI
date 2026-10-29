@@ -1,13 +1,15 @@
+using Medilog.Application.Common.Interfaces;
 using Medilog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Medilog.Infrastructure.Persistence;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options), IUnitOfWork
 {
-    public DbSet<Doctor> Doctors => Set<Doctor>();
+    public DbSet<User> Users => Set<User>();
     public DbSet<Patient> Patients => Set<Patient>();
-    public DbSet<MedicalVisit> MedicalVisits => Set<MedicalVisit>();
+    public DbSet<Appointment> Appointments => Set<Appointment>();
+    public DbSet<Visit> Visits => Set<Visit>();
     public DbSet<Diagnosis> Diagnoses => Set<Diagnosis>();
     public DbSet<Medication> Medications => Set<Medication>();
     public DbSet<Allergy> Allergies => Set<Allergy>();
@@ -16,46 +18,73 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<LaboratoryResult> LaboratoryResults => Set<LaboratoryResult>();
     public DbSet<MedicalNote> MedicalNotes => Set<MedicalNote>();
     public DbSet<MedicalDocument> MedicalDocuments => Set<MedicalDocument>();
-    public DbSet<Secretary> Secretaries => Set<Secretary>();
-    public DbSet<Appointment> Appointments => Set<Appointment>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Doctor>(entity =>
+        modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(x => x.DoctorId);
+            entity.ToTable("Users");
+            entity.HasKey(x => x.UserId);
             entity.Property(x => x.FullName).IsRequired().HasMaxLength(200);
+            entity.Property(x => x.FullNameEn).HasMaxLength(200);
             entity.Property(x => x.Email).IsRequired().HasMaxLength(254);
             entity.HasIndex(x => x.Email).IsUnique();
             entity.Property(x => x.PasswordHash).IsRequired().HasMaxLength(500);
             entity.Property(x => x.Phone).HasMaxLength(30);
             entity.Property(x => x.Specialization).HasMaxLength(150);
-            entity.Property(x => x.AccountStatus).IsRequired().HasMaxLength(30);
+            entity.Property(x => x.Role).HasConversion<string>().HasMaxLength(20);
+            entity.Property(x => x.AccountStatus).HasConversion<string>().HasMaxLength(20);
         });
 
         modelBuilder.Entity<Patient>(entity =>
         {
+            entity.ToTable("Patients");
             entity.HasKey(x => x.PatientId);
+            entity.Property(x => x.Code).IsRequired().HasMaxLength(16);
+            entity.HasIndex(x => x.Code).IsUnique();
             entity.Property(x => x.FullName).IsRequired().HasMaxLength(200);
-            entity.Property(x => x.Gender).IsRequired().HasMaxLength(30);
+            entity.HasIndex(x => x.FullName);
+            entity.Property(x => x.FullNameEn).HasMaxLength(200);
             entity.Property(x => x.Phone).HasMaxLength(30);
-            entity.Property(x => x.Address).HasMaxLength(500);
-            entity.Property(x => x.BloodType).HasMaxLength(10);
-            entity.Property(x => x.EmergencyContact).HasMaxLength(200);
-            entity.HasIndex(x => x.DoctorId);
-            entity.HasOne(x => x.Doctor).WithMany(x => x.Patients).HasForeignKey(x => x.DoctorId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasIndex(x => x.Phone);
+            entity.Property(x => x.Gender).HasConversion<string>().HasMaxLength(20);
+            entity.Property(x => x.Notes).HasMaxLength(2000);
         });
 
-        modelBuilder.Entity<MedicalVisit>(entity =>
+        modelBuilder.Entity<Appointment>(entity =>
         {
+            entity.ToTable("Appointments");
+            entity.HasKey(x => x.AppointmentId);
+            entity.Property(x => x.Reason).IsRequired().HasMaxLength(50);
+            entity.Property(x => x.Status).HasConversion<string>().HasMaxLength(20);
+            entity.Property(x => x.Notes).HasMaxLength(1000);
+            entity.Property(x => x.CancellationReason).HasMaxLength(500);
+            entity.Ignore(x => x.EndsAt);
+            entity.HasIndex(x => x.StartsAt);
+            entity.HasIndex(x => new { x.DoctorId, x.StartsAt });
+            entity.HasOne(x => x.Patient).WithMany(x => x.Appointments)
+                .HasForeignKey(x => x.PatientId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(x => x.Doctor).WithMany(x => x.Appointments)
+                .HasForeignKey(x => x.DoctorId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(x => x.Visit).WithOne(x => x.Appointment)
+                .HasForeignKey<Visit>(x => x.AppointmentId).OnDelete(DeleteBehavior.SetNull);
+        });
+
+        modelBuilder.Entity<Visit>(entity =>
+        {
+            entity.ToTable("Visits");
             entity.HasKey(x => x.VisitId);
-            entity.Property(x => x.VisitDate).IsRequired();
-            entity.HasIndex(x => new { x.PatientId, x.VisitDate });
-            entity.HasOne(x => x.Patient).WithMany().HasForeignKey(x => x.PatientId).OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(x => x.Doctor).WithMany().HasForeignKey(x => x.DoctorId).OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(x => x.Appointment).WithOne(x => x.MedicalVisit).HasForeignKey<MedicalVisit>(x => x.AppointmentId).OnDelete(DeleteBehavior.SetNull);
+            entity.HasIndex(x => new { x.PatientId, x.VisitedAt });
+            entity.HasIndex(x => x.VisitedAt);
+            entity.Property(x => x.ChiefComplaint).HasMaxLength(500);
+            entity.Property(x => x.Symptoms).HasMaxLength(2000);
+            entity.Property(x => x.ClinicalNotes).HasMaxLength(4000);
+            entity.HasOne(x => x.Patient).WithMany(x => x.Visits)
+                .HasForeignKey(x => x.PatientId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(x => x.Doctor).WithMany(x => x.Visits)
+                .HasForeignKey(x => x.DoctorId).OnDelete(DeleteBehavior.Restrict);
         });
 
         modelBuilder.Entity<Diagnosis>(entity =>
@@ -123,7 +152,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         modelBuilder.Entity<MedicalNote>(entity =>
         {
             entity.HasKey(x => x.NoteId);
-            entity.Property(x => x.NoteContent).IsRequired();
+            entity.Property(x => x.NoteContent).IsRequired().HasMaxLength(4000);
             entity.HasIndex(x => new { x.PatientId, x.CreatedDate });
             entity.HasOne(x => x.Patient).WithMany().HasForeignKey(x => x.PatientId).OnDelete(DeleteBehavior.Cascade);
             entity.HasOne(x => x.Doctor).WithMany().HasForeignKey(x => x.DoctorId).OnDelete(DeleteBehavior.Restrict);
@@ -139,29 +168,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             entity.HasIndex(x => x.PatientId);
             entity.HasOne(x => x.Patient).WithMany().HasForeignKey(x => x.PatientId).OnDelete(DeleteBehavior.Cascade);
             entity.HasOne(x => x.Uploader).WithMany().HasForeignKey(x => x.UploadedBy).OnDelete(DeleteBehavior.Restrict);
-        });
-
-        modelBuilder.Entity<Secretary>(entity =>
-        {
-            entity.HasKey(x => x.SecretaryId);
-            entity.Property(x => x.FullName).IsRequired().HasMaxLength(200);
-            entity.Property(x => x.Email).IsRequired().HasMaxLength(254);
-            entity.HasIndex(x => x.Email).IsUnique();
-            entity.Property(x => x.PasswordHash).IsRequired().HasMaxLength(500);
-            entity.Property(x => x.Phone).HasMaxLength(30);
-            entity.Property(x => x.AccountStatus).HasConversion<string>().HasMaxLength(20);
-            entity.HasMany(x => x.Doctors).WithMany(x => x.Secretaries)
-                .UsingEntity("SecretaryDoctors");
-        });
-
-        modelBuilder.Entity<Appointment>(entity =>
-        {
-            entity.HasKey(x => x.AppointmentId);
-            entity.Property(x => x.Status).HasConversion<string>().HasMaxLength(20);
-            entity.HasIndex(x => new { x.DoctorId, x.AppointmentDate, x.StartTime });
-            entity.HasIndex(x => new { x.PatientId, x.AppointmentDate });
-            entity.HasOne(x => x.Patient).WithMany().HasForeignKey(x => x.PatientId).OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(x => x.Doctor).WithMany().HasForeignKey(x => x.DoctorId).OnDelete(DeleteBehavior.Restrict);
         });
     }
 }

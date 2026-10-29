@@ -10,6 +10,6 @@ public class MedicalNote
     public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedDate { get; set; }
     public Patient Patient { get; set; } = null!;
-    public Doctor Doctor { get; set; } = null!;
-    public MedicalVisit? Visit { get; set; }
+    public User Doctor { get; set; } = null!;
+    public Visit? Visit { get; set; }
 }

@@ -16,3 +16,23 @@ D:\New Life\Projects\DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\
 D:\New Life\Projects\DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\refint\Medilog.Infrastructure.dll
 D:\New Life\Projects\DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.pdb
 D:\New Life\Projects\DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\ref\Medilog.Infrastructure.dll
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.dll
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\refint\Medilog.Infrastructure.dll
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.pdb
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.csproj.AssemblyReference.cache
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.AssemblyInfoInputs.cache
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.AssemblyInfo.cs
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.sourcelink.json
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\bin\Debug\net10.0\Medilog.Infrastructure.deps.json
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\bin\Debug\net10.0\Medilog.Infrastructure.runtimeconfig.json
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\bin\Debug\net10.0\Medilog.Infrastructure.dll
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\bin\Debug\net10.0\Medilog.Infrastructure.pdb
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\bin\Debug\net10.0\Medilog.Application.dll
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\bin\Debug\net10.0\Medilog.Domain.dll
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\bin\Debug\net10.0\Medilog.Application.pdb
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\bin\Debug\net10.0\Medilog.Domain.pdb
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog..6FB89E20.Up2Date
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.genruntimeconfig.cache
+C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\ref\Medilog.Infrastructure.dll
