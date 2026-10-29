@@ -1,4 +1,10 @@
+using Medilog.Api.Authorization;
+using Medilog.Api.Endpoints;
+using Medilog.Application.Interfaces;
+using Medilog.Application.Services;
+using Medilog.Infrastructure;
 using Medilog.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +19,14 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
+// Role-based and secretary-scope authorization (Member 5).
+// Authentication itself (scheme, token validation) is registered by the auth implementation.
+builder.Services.AddInfrastructureSecurity();
+builder.Services.AddScoped<IResourceAccessService, ResourceAccessService>();
+builder.Services.AddScoped<IAuthorizationHandler, MedilogRoleHandler>();
+builder.Services.AddSingleton<IAuthorizationMiddlewareResultHandler, MedilogAuthorizationResultHandler>();
+builder.Services.AddAuthorizationBuilder().AddMedilogPolicies();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,6 +36,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapSecretaryEndpoints();
 
 var summaries = new[]
 {

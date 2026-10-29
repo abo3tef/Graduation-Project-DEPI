@@ -249,5 +249,30 @@
     },
     "copyright": "midiLog - Graduation Project",
     "tagline": "Prototype with sample data only, not for patient use"
+  },
+  "secretary": {
+    "navigation": {
+      "ariaLabel": "Secretary navigation",
+      "appointments": "Appointments",
+      "patients": "Patients",
+      "account": "My account"
+    },
+    "account": {
+      "title": "My account",
+      "subtitle": "Your account details and the doctors you manage appointments for.",
+      "loading": "Loading account details…",
+      "role": "Secretary",
+      "email": "Email",
+      "phone": "Phone",
+      "status": "Account status",
+      "statusActive": "Active",
+      "statusInactive": "Inactive",
+      "createdAt": "Member since",
+      "notProvided": "Not provided",
+      "assignedDoctors": "Assigned doctors",
+      "assignedDoctorsHint": "You can manage appointments and basic patient information for these doctors only. Medical records are not available to secretaries.",
+      "noAssignments": "No doctors are assigned to you yet. Please contact the system administrator.",
+      "loadError": "We couldn't load your account details. Please try again later."
+    }
   }
-}   
+}
