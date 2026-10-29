@@ -10,7 +10,8 @@
     "timeline": "Medical timeline"
   },
   "language": {
-    "switchTo": "العربية"
+    "switchTo": "العربية",
+    "ariaLabel": "Change language to Arabic"
   },
   "shell": {
     "brand": "Medical Record",
@@ -66,8 +67,6 @@
     "recentPatients": {
       "title": "Recent patients"
     }
-    "switchTo": "العربية",
-    "ariaLabel": "Change language to Arabic"
   },
   "navigation": {
     "brand": "midiLog",
@@ -104,4 +103,4 @@
     "copyright": "midiLog - Graduation Project",
     "tagline": "Prototype with sample data only, not for patient use"
   }
-}   
+}

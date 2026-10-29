@@ -10,7 +10,8 @@
     "timeline": "الخط الزمني الطبي"
   },
   "language": {
-    "switchTo": "English"
+    "switchTo": "English",
+    "ariaLabel": "تغيير اللغة إلى الإنجليزية"
   },
   "shell": {
     "brand": "السجل الطبي",
@@ -66,8 +67,6 @@
     "recentPatients": {
       "title": "آخر المرضى"
     }
-    "switchTo": "English",
-    "ariaLabel": "تغيير اللغة إلى الإنجليزية"
   },
   "navigation": {
     "brand": "ميدي لوج",
