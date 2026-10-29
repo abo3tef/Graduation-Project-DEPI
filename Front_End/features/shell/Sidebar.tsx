@@ -23,8 +23,11 @@ interface SidebarProps {
   name: string;
 }
 
-function roleLabel(t: (key: string) => string, role: UserRole): string {
-  return t(`roles.${role}`);
+function roleLabel(
+  t: (key: string) => string,
+  role: UserRole
+): string {
+  return t(`roleSwitcher.${role}`);
 }
 
 export function Sidebar({

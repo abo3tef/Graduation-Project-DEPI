@@ -11,7 +11,6 @@ export default getRequestConfig(async ({ requestLocale }) => {
   return {
     locale,
     timeZone: "Africa/Cairo",
-    now: new Date(),
     formats: {
       dateTime: {
         short: {

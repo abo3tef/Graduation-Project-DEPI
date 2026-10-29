@@ -69,6 +69,16 @@ export function formatLongDateOnly(value: string, locale: "ar" | "en"): string {
     month: "long",
   });
 }
+export function formatFullDate(
+  value: string,
+  locale: "ar" | "en",
+): string {
+  return formatDateOnly(value, locale, {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
 
 /**
  * Converts a Cairo wall-clock date/time into a UTC instant. The offset is read

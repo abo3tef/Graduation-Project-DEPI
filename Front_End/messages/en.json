@@ -172,7 +172,8 @@
     "roleSwitcher": {
       "label": "Switch role",
       "doctor": "Doctor",
-      "secretary": "Secretary"
+      "secretary": "Secretary",
+      "admin": "Admin"
     },
     "topbar": {
       "openMenu": "Open menu",
