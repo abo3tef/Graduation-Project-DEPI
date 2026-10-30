@@ -344,13 +344,22 @@
     "title": "Patients",
     "subtitle": "Search patient records and add new patients.",
     "add": "Add patient",
+    "edit": "Edit details",
     "searchPlaceholder": "Search by name, phone, or code...",
     "searchLabel": "Search patients",
     "clearSearch": "Clear search",
+    "filters": {
+      "gender": "Gender",
+      "allGenders": "All genders",
+      "minAge": "Min age",
+      "maxAge": "Max age",
+      "ageHint": "Enter whole ages between 0 and {max}.",
+      "clear": "Clear filters"
+    },
     "emptyTitle": "No patients yet",
     "emptyDescription": "Add the first patient to start the clinic record.",
     "noResultsTitle": "No results",
-    "noResultsDescription": "Try another name or a different phone number.",
+    "noResultsDescription": "Try another name, a different phone number, or fewer filters.",
     "columns": {
       "name": "Patient",
       "phone": "Phone",
@@ -381,7 +390,16 @@
       "genderPlaceholder": "Choose gender",
       "notes": "Notes",
       "notesPlaceholder": "Short medical notes (optional)",
+      "address": "Address",
+      "addressPlaceholder": "Street, area, city",
+      "emergencyContact": "Emergency contact",
+      "emergencyContactPlaceholder": "Name and phone number",
+      "doctor": "Doctor",
+      "doctorPlaceholder": "Choose the doctor",
+      "editTitle": "Edit patient details",
+      "editDescription": "Update the patient's administrative details.",
       "submit": "Save patient",
+      "saveChanges": "Save changes",
       "saving": "Saving...",
       "errors": {
         "required": "Complete the required fields.",
@@ -391,6 +409,11 @@
         "birthDateFuture": "Date of birth cannot be in the future.",
         "gender": "Choose a gender.",
         "notes": "The notes are too long.",
+        "address": "The address is too long (500 characters at most).",
+        "emergencyContact": "The emergency contact is too long (300 characters at most).",
+        "doctorRequired": "Choose the doctor for this patient.",
+        "doctorNotAllowed": "You cannot register patients for this doctor.",
+        "notFound": "This patient could not be found.",
         "duplicatePhone": "A patient already uses this phone number.",
         "generic": "Could not save the patient. Try again."
       }
@@ -407,6 +430,8 @@
       "birthDate": "Date of birth",
       "age": "Age",
       "gender": "Gender",
+      "address": "Address",
+      "emergencyContact": "Emergency contact",
       "lastVisit": "Last visit"
     }
   },

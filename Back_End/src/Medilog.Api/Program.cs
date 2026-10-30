@@ -14,6 +14,7 @@ using Medilog.Infrastructure.Auth;
 using Medilog.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -118,6 +119,8 @@ builder.Services.AddAuthorizationBuilder()
 // Role-based and secretary-scope authorization (Member 5).
 // Authentication itself (scheme, token validation) is registered by the auth implementation.
 builder.Services.AddInfrastructureSecurity();
+builder.Services.AddScoped<Medilog.Application.Security.ICurrentUser>(provider =>
+    new ClaimsPrincipalCurrentUser(provider.GetRequiredService<IHttpContextAccessor>().HttpContext?.User ?? new System.Security.Claims.ClaimsPrincipal()));
 builder.Services.AddScoped<IResourceAccessService, ResourceAccessService>();
 builder.Services.AddScoped<IAuthorizationHandler, MedilogRoleHandler>();
 builder.Services.AddSingleton<IAuthorizationMiddlewareResultHandler, MedilogAuthorizationResultHandler>();

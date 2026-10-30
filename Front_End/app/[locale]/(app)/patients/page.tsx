@@ -6,8 +6,17 @@ import { PatientSearch } from "@/features/patients/PatientSearch";
 import { AddPatientButton } from "@/features/patients/AddPatientButton";
 import { PatientsTable } from "@/features/patients/PatientsTable";
 import { PatientsPagination } from "@/features/patients/PatientsPagination";
-import { searchPatients } from "@/data/patients/queries";
+import { requireSession } from "@/data/auth/session";
+import { getAssignedDoctors, searchPatients } from "@/data/patients/queries";
 import { toLocale } from "@/lib/locale";
+import {
+  DEFAULT_PATIENT_SORT,
+  hasActiveFilters,
+  parseAge,
+  parseGender,
+  patientsHref,
+  type PatientListFilters,
+} from "@/lib/patients-url";
 import { Link, redirect } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import type { PatientSort } from "@/types/api";
@@ -51,10 +60,23 @@ export default async function PatientsPage({
 
   const search =
     typeof query.q === "string" ? query.q.trim().slice(0, 100) : "";
+  const minAge = parseAge(query.minAge);
+  const maxAge = parseAge(query.maxAge);
+  const filters: PatientListFilters = {
+    search,
+    gender: parseGender(query.gender),
+    minAge,
+    // An inverted range would be rejected by the API; keep the lower bound only.
+    maxAge:
+      minAge !== undefined && maxAge !== undefined && maxAge < minAge
+        ? undefined
+        : maxAge,
+  };
+
   const requestedSort = typeof query.sort === "string" ? query.sort : "";
   const sort: PatientSort = (SORTS as readonly string[]).includes(requestedSort)
     ? (requestedSort as PatientSort)
-    : "lastVisit_desc";
+    : DEFAULT_PATIENT_SORT;
   const parsedPage = Number.parseInt(
     typeof query.page === "string" ? query.page : "1",
     10,
@@ -62,39 +84,42 @@ export default async function PatientsPage({
   const page = Number.isFinite(parsedPage) && parsedPage > 0 ? parsedPage : 1;
   const pageSize = 10;
 
-  const result = await searchPatients(locale, {
-    search: search || undefined,
-    page,
-    pageSize,
-    sort,
-  });
+  const session = await requireSession(locale);
+  const [result, doctors] = await Promise.all([
+    searchPatients(locale, {
+      search: filters.search || undefined,
+      gender: filters.gender || undefined,
+      minAge: filters.minAge,
+      maxAge: filters.maxAge,
+      page,
+      pageSize,
+      sort,
+    }),
+    getAssignedDoctors(locale),
+  ]);
 
   if (result.total > 0 && result.items.length === 0 && page > 1) {
     const lastPage = Math.max(1, result.totalPages);
-    const params = new URLSearchParams();
-    if (search) params.set("q", search);
-    if (sort !== "lastVisit_desc") params.set("sort", sort);
-    if (lastPage > 1) params.set("page", String(lastPage));
-    const qs = params.toString();
-    redirect({ href: `/patients${qs ? `?${qs}` : ""}`, locale });
+    redirect({ href: patientsHref(filters, sort, lastPage), locale });
   }
 
   const t = await getTranslations({ locale, namespace: "patients" });
   const common = await getTranslations({ locale, namespace: "common" });
-  const isFiltered = Boolean(search);
+  const isFiltered = hasActiveFilters(filters);
+  // Secretaries handle basic patient information only; visits belong to the medical record.
+  const showLastVisit = session.role !== "secretary";
 
   return (
     <div>
       <PageHeader
         title={t("title")}
         subtitle={t("subtitle")}
-        actions={<AddPatientButton />}
+        actions={<AddPatientButton doctors={doctors} />}
       />
 
       <div className="mb-4">
         <PatientSearch
-          key={search}
-          initial={search}
+          initial={filters}
           sort={sort}
           placeholder={t("searchPlaceholder")}
           label={t("searchLabel")}
@@ -119,7 +144,7 @@ export default async function PatientsPage({
                 {common("clearSearch")}
               </Link>
             ) : (
-              <AddPatientButton />
+              <AddPatientButton doctors={doctors} />
             )
           }
         />
@@ -129,14 +154,15 @@ export default async function PatientsPage({
             patients={result.items}
             locale={locale}
             sort={sort}
-            search={search}
+            filters={filters}
+            showLastVisit={showLastVisit}
           />
           <PatientsPagination
             page={result.page}
             totalPages={result.totalPages}
             total={result.total}
             pageSize={result.pageSize}
-            search={search}
+            filters={filters}
             sort={sort}
             locale={locale}
           />

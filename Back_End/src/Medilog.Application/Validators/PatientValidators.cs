@@ -33,6 +33,12 @@ public sealed class CreatePatientRequestValidator : AbstractValidator<CreatePati
 
         RuleFor(x => x.Notes)
             .MaximumLength(2000).WithErrorCode("notes_too_long");
+
+        RuleFor(x => x.Address)
+            .MaximumLength(500).WithErrorCode("address_too_long");
+
+        RuleFor(x => x.EmergencyContact)
+            .MaximumLength(300).WithErrorCode("emergency_contact_too_long");
     }
 
     private static bool BeEgyptianMobile(string? phone) =>
@@ -68,6 +74,12 @@ public sealed class UpdatePatientRequestValidator : AbstractValidator<UpdatePati
 
         RuleFor(x => x.Notes)
             .MaximumLength(2000).WithErrorCode("notes_too_long");
+
+        RuleFor(x => x.Address)
+            .MaximumLength(500).WithErrorCode("address_too_long");
+
+        RuleFor(x => x.EmergencyContact)
+            .MaximumLength(300).WithErrorCode("emergency_contact_too_long");
     }
 
     private static bool BeEgyptianMobile(string? phone) =>
@@ -89,8 +101,20 @@ public sealed class PatientSearchQueryValidator : AbstractValidator<PatientSearc
         RuleFor(x => x.Page).GreaterThanOrEqualTo(1).WithErrorCode("page_invalid");
         RuleFor(x => x.PageSize).InclusiveBetween(1, 50).WithErrorCode("page_size_invalid");
         RuleFor(x => x.Search).MaximumLength(100).WithErrorCode("search_too_long");
+        RuleFor(x => x.Gender)
+            .Must(gender => gender is "female" or "male" or "unspecified")
+            .When(x => !string.IsNullOrWhiteSpace(x.Gender))
+            .WithErrorCode("gender_invalid");
+        RuleFor(x => x.MinAge).InclusiveBetween(0, 130)
+            .When(x => x.MinAge.HasValue).WithErrorCode("age_invalid");
+        RuleFor(x => x.MaxAge).InclusiveBetween(0, 130)
+            .When(x => x.MaxAge.HasValue).WithErrorCode("age_invalid");
+        RuleFor(x => x.MaxAge)
+            .GreaterThanOrEqualTo(x => x.MinAge!.Value)
+            .When(x => x.MinAge.HasValue && x.MaxAge.HasValue)
+            .WithErrorCode("age_range_invalid");
         RuleFor(x => x.Sort)
-            .Must(sort => AllowedSorts.Contains(sort))
+            .Must(sort => sort is null || AllowedSorts.Contains(sort))
             .WithErrorCode("sort_invalid");
     }
 }

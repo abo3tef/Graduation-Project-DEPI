@@ -22,6 +22,12 @@ public sealed class MedilogApiFactory : WebApplicationFactory<Program>
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseEnvironment("Development");
+
+        // Program reads the connection string while building services, before the in-memory
+        // configuration below is applied, so it must also be supplied as a host setting.
+        // Otherwise every run shares one persistent medilog.dev.db in the test output folder.
+        builder.UseSetting("ConnectionStrings:DefaultConnection", $"Data Source={_databasePath}");
+
         builder.ConfigureAppConfiguration((_, configuration) =>
         {
             configuration.AddInMemoryCollection(new Dictionary<string, string?>

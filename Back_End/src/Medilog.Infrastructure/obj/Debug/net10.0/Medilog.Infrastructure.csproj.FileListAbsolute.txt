@@ -36,3 +36,23 @@ C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\bin\Debu
 C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog..6FB89E20.Up2Date
 C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.genruntimeconfig.cache
 C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\ref\Medilog.Infrastructure.dll
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.csproj.AssemblyReference.cache
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.AssemblyInfoInputs.cache
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.AssemblyInfo.cs
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.csproj.CoreCompileInputs.cache
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.sourcelink.json
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.dll
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\refint\Medilog.Infrastructure.dll
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.pdb
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\bin\Debug\net10.0\Medilog.Infrastructure.deps.json
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\bin\Debug\net10.0\Medilog.Infrastructure.runtimeconfig.json
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\bin\Debug\net10.0\Medilog.Infrastructure.dll
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\bin\Debug\net10.0\Medilog.Infrastructure.pdb
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\bin\Debug\net10.0\Medilog.Application.dll
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\bin\Debug\net10.0\Medilog.Domain.dll
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\bin\Debug\net10.0\Medilog.Application.pdb
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\bin\Debug\net10.0\Medilog.Domain.pdb
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog..6FB89E20.Up2Date
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\Medilog.Infrastructure.genruntimeconfig.cache
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Infrastructure\obj\Debug\net10.0\ref\Medilog.Infrastructure.dll

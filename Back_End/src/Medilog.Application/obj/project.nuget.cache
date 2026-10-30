@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "zQfVRBQrtp4=",
+  "dgSpecHash": "QMUA2/ZIKV8=",
   "success": true,
-  "projectFilePath": "C:\\Projects\\Graduation-Project-DEPI\\Back_End\\src\\Medilog.Application\\Medilog.Application.csproj",
+  "projectFilePath": "D:\\menna-D\\Full-Stack Depi\\GradutionProject\\Repo\\Graduation-Project-DEPI\\Back_End\\src\\Medilog.Application\\Medilog.Application.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\lenovo\\.nuget\\packages\\fluentvalidation\\12.0.0\\fluentvalidation.12.0.0.nupkg.sha512",
-    "C:\\Users\\lenovo\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.14\\microsoft.extensions.dependencyinjection.abstractions.10.0.14.nupkg.sha512"
+    "C:\\Users\\Lenovo\\.nuget\\packages\\fluentvalidation\\12.0.0\\fluentvalidation.12.0.0.nupkg.sha512",
+    "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.14\\microsoft.extensions.dependencyinjection.abstractions.10.0.14.nupkg.sha512"
   ],
   "logs": []
 }

@@ -8,6 +8,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 {
     public DbSet<User> Users => Set<User>();
     public DbSet<Patient> Patients => Set<Patient>();
+    public DbSet<SecretaryDoctor> SecretaryDoctors => Set<SecretaryDoctor>();
     public DbSet<Appointment> Appointments => Set<Appointment>();
     public DbSet<Visit> Visits => Set<Visit>();
     public DbSet<Diagnosis> Diagnoses => Set<Diagnosis>();
@@ -50,7 +51,23 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             entity.Property(x => x.Phone).HasMaxLength(30);
             entity.HasIndex(x => x.Phone);
             entity.Property(x => x.Gender).HasConversion<string>().HasMaxLength(20);
+            entity.Property(x => x.Address).HasMaxLength(500);
+            entity.Property(x => x.EmergencyContact).HasMaxLength(300);
             entity.Property(x => x.Notes).HasMaxLength(2000);
+            entity.HasIndex(x => x.DoctorId);
+            entity.HasOne(x => x.Doctor).WithMany()
+                .HasForeignKey(x => x.DoctorId).OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<SecretaryDoctor>(entity =>
+        {
+            entity.ToTable("SecretaryDoctors");
+            entity.HasKey(x => new { x.SecretaryId, x.DoctorId });
+            entity.HasIndex(x => x.DoctorId);
+            entity.HasOne(x => x.Secretary).WithMany()
+                .HasForeignKey(x => x.SecretaryId).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(x => x.Doctor).WithMany()
+                .HasForeignKey(x => x.DoctorId).OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Appointment>(entity =>

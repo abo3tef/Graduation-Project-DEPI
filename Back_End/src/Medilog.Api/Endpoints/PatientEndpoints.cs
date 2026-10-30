@@ -1,3 +1,4 @@
+using Medilog.Api.Authorization;
 using Medilog.Application.Common.Exceptions;
 using Medilog.Application.DTOs.Patients;
 using Medilog.Application.Services;
@@ -10,7 +11,7 @@ public static class PatientEndpoints
     {
         var group = app.MapGroup("/patients")
             .WithTags("Patients")
-            .RequireAuthorization();
+            .RequireSchedulingAccess();
 
         group.MapGet("", async (
             [AsParameters] PatientSearchQuery query,
@@ -39,7 +40,6 @@ public static class PatientEndpoints
             var patient = await service.CreateAsync(request, cancellationToken);
             return Results.CreatedAtRoute("GetPatient", new { id = patient.Id }, patient);
         })
-        .RequireAuthorization("SecretaryOnly")
         .WithName("CreatePatient");
 
         group.MapPatch("/{id:guid}", async (
@@ -55,7 +55,6 @@ public static class PatientEndpoints
 
             return Results.Ok(await service.UpdateAsync(id, request, cancellationToken));
         })
-        .RequireAuthorization("SecretaryOnly")
         .WithName("UpdatePatient");
 
         return app;

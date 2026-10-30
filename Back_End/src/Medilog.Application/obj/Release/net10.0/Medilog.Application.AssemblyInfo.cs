@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Medilog.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e08a80e71a8641f4a9e05e7111dde05a992ec7b4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ec66e3b4bf5e64d43acda2b98c48b2b1655af19e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Medilog.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Medilog.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

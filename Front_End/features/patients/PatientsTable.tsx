@@ -6,6 +6,7 @@ import {
 } from "react-icons/fi";
 import { Link } from "@/i18n/navigation";
 import { formatDayMonth, getInitial } from "@/lib/format";
+import { patientsHref, type PatientListFilters } from "@/lib/patients-url";
 import type { Locale } from "@/i18n/routing";
 import type { PatientListItem, PatientSort } from "@/types/api";
 
@@ -35,24 +36,17 @@ function nextSort(field: SortField, current: PatientSort): PatientSort {
   return `${field}_${direction}` as PatientSort;
 }
 
-function patientsHref(search: string, sort: PatientSort): string {
-  const params = new URLSearchParams();
-  if (search) params.set("q", search);
-  if (sort !== "lastVisit_desc") params.set("sort", sort);
-  const query = params.toString();
-  return `/patients${query ? `?${query}` : ""}`;
-}
 
 function SortHeader({
   label,
   field,
   sort,
-  search,
+  filters,
 }: {
   label: string;
   field: SortField;
   sort: PatientSort;
-  search: string;
+  filters: PatientListFilters;
 }) {
   const parsed = splitSort(sort);
   const active = parsed.field === field;
@@ -68,7 +62,7 @@ function SortHeader({
       className="whitespace-nowrap px-3 py-3 text-start"
     >
       <Link
-        href={patientsHref(search, target)}
+        href={patientsHref(filters, target)}
         className={`inline-flex items-center gap-1 font-bold transition hover:text-primary ${
           active ? "text-primary" : "text-muted"
         }`}
@@ -87,12 +81,15 @@ export async function PatientsTable({
   patients,
   locale,
   sort,
-  search,
+  filters,
+  showLastVisit,
 }: {
   patients: PatientListItem[];
   locale: Locale;
   sort: PatientSort;
-  search: string;
+  filters: PatientListFilters;
+  /** False for secretaries: the last visit comes from medical records, which they cannot see. */
+  showLastVisit: boolean;
 }) {
   const t = await getTranslations({ locale, namespace: "patients" });
   const common = await getTranslations({ locale, namespace: "common" });
@@ -108,7 +105,7 @@ export async function PatientsTable({
                   label={t("columns.name")}
                   field="name"
                   sort={sort}
-                  search={search}
+                  filters={filters}
                 />
                 <th
                   scope="col"
@@ -120,13 +117,13 @@ export async function PatientsTable({
                   label={t("columns.code")}
                   field="code"
                   sort={sort}
-                  search={search}
+                  filters={filters}
                 />
                 <SortHeader
                   label={t("columns.age")}
                   field="age"
                   sort={sort}
-                  search={search}
+                  filters={filters}
                 />
                 <th
                   scope="col"
@@ -134,12 +131,14 @@ export async function PatientsTable({
                 >
                   {t("columns.gender")}
                 </th>
-                <SortHeader
-                  label={t("columns.lastVisit")}
-                  field="lastVisit"
-                  sort={sort}
-                  search={search}
-                />
+                {showLastVisit ? (
+                  <SortHeader
+                    label={t("columns.lastVisit")}
+                    field="lastVisit"
+                    sort={sort}
+                    filters={filters}
+                  />
+                ) : null}
                 <th scope="col" className="w-px px-3 py-3">
                   <span className="sr-only">{common("openFile")}</span>
                 </th>
@@ -185,11 +184,13 @@ export async function PatientsTable({
                   <td className="whitespace-nowrap px-3 py-3 text-muted">
                     {t(`gender.${patient.gender}`)}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-3 text-muted">
-                    {patient.lastVisitAt
-                      ? formatDayMonth(patient.lastVisitAt, locale)
-                      : common("noVisitYet")}
-                  </td>
+                  {showLastVisit ? (
+                    <td className="whitespace-nowrap px-3 py-3 text-muted">
+                      {patient.lastVisitAt
+                        ? formatDayMonth(patient.lastVisitAt, locale)
+                        : common("noVisitYet")}
+                    </td>
+                  ) : null}
                   <td className="px-3 py-3">
                     <Link
                       href={`/patients/${patient.id}`}
@@ -245,14 +246,16 @@ export async function PatientsTable({
                   {patient.phone ?? "—"}
                 </dd>
               </div>
-              <div>
-                <dt className="text-muted">{t("columns.lastVisit")}</dt>
-                <dd className="mt-0.5 font-semibold">
-                  {patient.lastVisitAt
-                    ? formatDayMonth(patient.lastVisitAt, locale)
-                    : common("noVisitYet")}
-                </dd>
-              </div>
+              {showLastVisit ? (
+                <div>
+                  <dt className="text-muted">{t("columns.lastVisit")}</dt>
+                  <dd className="mt-0.5 font-semibold">
+                    {patient.lastVisitAt
+                      ? formatDayMonth(patient.lastVisitAt, locale)
+                      : common("noVisitYet")}
+                  </dd>
+                </div>
+              ) : null}
             </dl>
 
             <Link

@@ -104,23 +104,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lenovo\\.nuget\\packages\\": {},
+    "C:\\Users\\Lenovo\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\Graduation-Project-DEPI\\Back_End\\src\\Medilog.Application\\Medilog.Application.csproj",
+      "projectUniqueName": "D:\\menna-D\\Full-Stack Depi\\GradutionProject\\Repo\\Graduation-Project-DEPI\\Back_End\\src\\Medilog.Application\\Medilog.Application.csproj",
       "projectName": "Medilog.Application",
-      "projectPath": "C:\\Projects\\Graduation-Project-DEPI\\Back_End\\src\\Medilog.Application\\Medilog.Application.csproj",
-      "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\Graduation-Project-DEPI\\Back_End\\src\\Medilog.Application\\obj\\",
+      "projectPath": "D:\\menna-D\\Full-Stack Depi\\GradutionProject\\Repo\\Graduation-Project-DEPI\\Back_End\\src\\Medilog.Application\\Medilog.Application.csproj",
+      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+      "outputPath": "D:\\menna-D\\Full-Stack Depi\\GradutionProject\\Repo\\Graduation-Project-DEPI\\Back_End\\src\\Medilog.Application\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -136,8 +136,8 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Projects\\Graduation-Project-DEPI\\Back_End\\src\\Medilog.Domain\\Medilog.Domain.csproj": {
-              "projectPath": "C:\\Projects\\Graduation-Project-DEPI\\Back_End\\src\\Medilog.Domain\\Medilog.Domain.csproj"
+            "D:\\menna-D\\Full-Stack Depi\\GradutionProject\\Repo\\Graduation-Project-DEPI\\Back_End\\src\\Medilog.Domain\\Medilog.Domain.csproj": {
+              "projectPath": "D:\\menna-D\\Full-Stack Depi\\GradutionProject\\Repo\\Graduation-Project-DEPI\\Back_End\\src\\Medilog.Domain\\Medilog.Domain.csproj"
             }
           }
         }
@@ -152,7 +152,7 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.300"
+      "SdkAnalysisLevel": "10.0.400"
     },
     "frameworks": {
       "net10.0": {
@@ -184,7 +184,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.403/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",

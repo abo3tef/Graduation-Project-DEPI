@@ -17,8 +17,14 @@ public class Patient
     public string? Phone { get; set; }
     public DateOnly BirthDate { get; set; }
     public Gender Gender { get; set; } = Gender.Unspecified;
+    public string? Address { get; set; }
+    public string? EmergencyContact { get; set; }
     public string? Notes { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    /// <summary>The owning doctor; the patient record belongs to this doctor's workspace.</summary>
+    public Guid DoctorId { get; set; }
+    public User Doctor { get; set; } = null!;
 
     public ICollection<Visit> Visits { get; set; } = new List<Visit>();
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
