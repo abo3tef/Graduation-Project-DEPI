@@ -12,6 +12,8 @@ import { normalizeDigits } from "@/lib/utils";
 import type { ActionState } from "@/types/actions";
 import type { PatientDetail } from "@/types/api";
 
+const PATIENT_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 function mapPatientError(error: ApiError): ActionState {
   if (error.code === "duplicate_phone") {
     return {
@@ -22,6 +24,20 @@ function mapPatientError(error: ApiError): ActionState {
 
   if (error.code === "network_error") {
     return { error: "errors.network" };
+  }
+
+  if (error.code === "patient_not_found") {
+    return { error: "patients.form.errors.notFound" };
+  }
+
+  if (
+    error.code === "doctor_not_allowed" ||
+    error.code === "no_assigned_doctor"
+  ) {
+    return {
+      error: "patients.form.errors.doctorNotAllowed",
+      fieldErrors: { doctorId: "patients.form.errors.doctorNotAllowed" },
+    };
   }
 
   const fieldErrors: Record<string, string> = {};
@@ -39,6 +55,12 @@ function mapPatientError(error: ApiError): ActionState {
       fieldErrors.gender = "patients.form.errors.gender";
     } else if (code.startsWith("notes_")) {
       fieldErrors.notes = "patients.form.errors.notes";
+    } else if (code.startsWith("address_")) {
+      fieldErrors.address = "patients.form.errors.address";
+    } else if (code.startsWith("emergency_contact_")) {
+      fieldErrors.emergencyContact = "patients.form.errors.emergencyContact";
+    } else if (code === "doctor_required") {
+      fieldErrors.doctorId = "patients.form.errors.doctorRequired";
     }
   }
 
@@ -50,6 +72,41 @@ function mapPatientError(error: ApiError): ActionState {
   }
 
   return { error: "patients.form.errors.generic" };
+}
+
+function text(formData: FormData, key: string): string {
+  return String(formData.get(key) ?? "").trim();
+}
+
+function readPatientFields(formData: FormData) {
+  return {
+    name: text(formData, "name"),
+    phone: normalizeDigits(text(formData, "phone")).trim(),
+    birthDate: text(formData, "birthDate"),
+    gender: text(formData, "gender") || "unspecified",
+    notes: text(formData, "notes") || null,
+    address: text(formData, "address") || null,
+    emergencyContact: text(formData, "emergencyContact") || null,
+  };
+}
+
+function missingRequired(
+  payload: ReturnType<typeof readPatientFields>,
+): ActionState | null {
+  if (payload.name && payload.phone && payload.birthDate) {
+    return null;
+  }
+
+  return {
+    error: "patients.form.errors.required",
+    fieldErrors: {
+      ...(payload.name ? {} : { name: "patients.form.errors.name" }),
+      ...(payload.phone ? {} : { phone: "patients.form.errors.phone" }),
+      ...(payload.birthDate
+        ? {}
+        : { birthDate: "patients.form.errors.birthDate" }),
+    },
+  };
 }
 
 export async function createPatientAction(
@@ -68,26 +125,14 @@ export async function createPatientAction(
     throw error;
   }
 
-  const phone = normalizeDigits(String(formData.get("phone") ?? "")).trim();
   const payload = {
-    name: String(formData.get("name") ?? "").trim(),
-    phone,
-    birthDate: String(formData.get("birthDate") ?? ""),
-    gender: String(formData.get("gender") ?? "unspecified"),
-    notes: String(formData.get("notes") ?? "").trim() || null,
+    ...readPatientFields(formData),
+    doctorId: text(formData, "doctorId") || null,
   };
 
-  if (!payload.name || !payload.phone || !payload.birthDate) {
-    return {
-      error: "patients.form.errors.required",
-      fieldErrors: {
-        ...(payload.name ? {} : { name: "patients.form.errors.name" }),
-        ...(payload.phone ? {} : { phone: "patients.form.errors.phone" }),
-        ...(payload.birthDate
-          ? {}
-          : { birthDate: "patients.form.errors.birthDate" }),
-      },
-    };
+  const missing = missingRequired(payload);
+  if (missing) {
+    return missing;
   }
 
   try {
@@ -106,5 +151,51 @@ export async function createPatientAction(
 
   revalidatePath(`/${locale}/patients`);
   revalidatePath(`/${locale}/dashboard`);
+  return { success: true };
+}
+
+export async function updatePatientAction(
+  _previous: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  const locale = toLocale(formData.get("locale") ?? (await getLocale()));
+
+  let session;
+  try {
+    session = await requireActionSession();
+  } catch (error) {
+    if (error instanceof ActionSessionError) {
+      return { error: "errors.sessionExpired" };
+    }
+    throw error;
+  }
+
+  const patientId = text(formData, "patientId");
+  if (!PATIENT_ID.test(patientId)) {
+    return { error: "patients.form.errors.notFound" };
+  }
+
+  const payload = readPatientFields(formData);
+  const missing = missingRequired(payload);
+  if (missing) {
+    return missing;
+  }
+
+  try {
+    await apiRequest<PatientDetail>(`/api/v1/patients/${patientId}`, {
+      method: "PATCH",
+      locale,
+      token: session.token,
+      body: payload,
+    });
+  } catch (error) {
+    if (error instanceof ApiError) {
+      return mapPatientError(error);
+    }
+    return { error: "patients.form.errors.generic" };
+  }
+
+  revalidatePath(`/${locale}/patients`);
+  revalidatePath(`/${locale}/patients/${patientId}`);
   return { success: true };
 }

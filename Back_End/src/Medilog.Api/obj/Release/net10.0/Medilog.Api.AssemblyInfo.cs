@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("medilog-api-local-6a27c9ef")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Medilog.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e08a80e71a8641f4a9e05e7111dde05a992ec7b4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ec66e3b4bf5e64d43acda2b98c48b2b1655af19e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Medilog.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Medilog.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

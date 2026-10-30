@@ -82,17 +82,17 @@ public sealed class ApiEndpointsTests(MedilogApiFactory factory) : IClassFixture
     }
 
     [Fact]
-    public async Task Patients_CreateAsDoctor_ReturnsForbidden()
+    public async Task Patients_CreateAsDoctor_IsAllowed()
     {
         using var client = await factory.CreateAuthorizedClientAsync(secretary: false);
         var response = await client.PostAsJsonAsync("/api/v1/patients", new CreatePatientRequest(
-            "مريض ممنوع",
+            "مريض الطبيب",
             "01077776666",
             new DateOnly(1985, 1, 1),
             "male",
             null));
 
-        Assert.Equal(HttpStatusCode.Forbidden, response.StatusCode);
+        Assert.Equal(HttpStatusCode.Created, response.StatusCode);
     }
 
     [Fact]

@@ -2,28 +2,16 @@ import { getTranslations } from "next-intl/server";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { patientsHref, type PatientListFilters } from "@/lib/patients-url";
 import type { Locale } from "@/i18n/routing";
 import type { PatientSort } from "@/types/api";
-
-function pageHref(
-  page: number,
-  search: string,
-  sort: PatientSort,
-): string {
-  const params = new URLSearchParams();
-  if (search) params.set("q", search);
-  if (sort !== "lastVisit_desc") params.set("sort", sort);
-  if (page > 1) params.set("page", String(page));
-  const query = params.toString();
-  return `/patients${query ? `?${query}` : ""}`;
-}
 
 export async function PatientsPagination({
   page,
   totalPages,
   total,
   pageSize,
-  search,
+  filters,
   sort,
   locale,
 }: {
@@ -31,10 +19,11 @@ export async function PatientsPagination({
   totalPages: number;
   total: number;
   pageSize: number;
-  search: string;
+  filters: PatientListFilters;
   sort: PatientSort;
   locale: Locale;
 }) {
+  const pageHref = (target: number) => patientsHref(filters, sort, target);
   const t = await getTranslations({ locale, namespace: "patients" });
   const common = await getTranslations({ locale, namespace: "common" });
 
@@ -60,7 +49,7 @@ export async function PatientsPagination({
       <div className="flex items-center gap-2">
         {hasPrevious ? (
           <Link
-            href={pageHref(page - 1, search, sort)}
+            href={pageHref(page - 1)}
             className={cn(linkClass, "text-muted hover:text-foreground")}
           >
             <FiChevronLeft
@@ -85,7 +74,7 @@ export async function PatientsPagination({
 
         {hasNext ? (
           <Link
-            href={pageHref(page + 1, search, sort)}
+            href={pageHref(page + 1)}
             className={cn(linkClass, "text-muted hover:text-foreground")}
           >
             {common("next")}

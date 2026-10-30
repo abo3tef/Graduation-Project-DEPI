@@ -22,3 +22,15 @@ C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.
 C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\refint\Medilog.Domain.dll
 C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\Medilog.Domain.pdb
 C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\ref\Medilog.Domain.dll
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\bin\Debug\net10.0\Medilog.Domain.deps.json
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\bin\Debug\net10.0\Medilog.Domain.dll
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\bin\Debug\net10.0\Medilog.Domain.pdb
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\Medilog.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\Medilog.Domain.AssemblyInfoInputs.cache
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\Medilog.Domain.AssemblyInfo.cs
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\Medilog.Domain.csproj.CoreCompileInputs.cache
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\Medilog.Domain.sourcelink.json
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\Medilog.Domain.dll
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\refint\Medilog.Domain.dll
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\Medilog.Domain.pdb
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Domain\obj\Debug\net10.0\ref\Medilog.Domain.dll

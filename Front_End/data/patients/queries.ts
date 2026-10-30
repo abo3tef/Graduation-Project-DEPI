@@ -1,6 +1,7 @@
 import { apiRequest } from "@/data/api/client";
 import { requireSession } from "@/data/auth/session";
 import type { Locale } from "@/i18n/routing";
+import type { AssignedDoctor, SecretaryAccount } from "@/types/secretary";
 import type {
   PagedResult,
   PatientDetail,
@@ -21,8 +22,32 @@ export async function searchPatients(
       page: params.page ?? 1,
       pageSize: params.pageSize ?? 10,
       sort: params.sort ?? "lastVisit_desc",
+      gender: params.gender,
+      minAge: params.minAge,
+      maxAge: params.maxAge,
     },
   });
+}
+
+/**
+ * The doctors a secretary may register patients for. Doctors and other roles get an empty list:
+ * a doctor always owns their own patients, so there is nothing to choose.
+ */
+export async function getAssignedDoctors(locale: Locale): Promise<AssignedDoctor[]> {
+  const session = await requireSession(locale);
+  if (session.role !== "secretary") {
+    return [];
+  }
+
+  try {
+    const account = await apiRequest<SecretaryAccount>("/api/secretary/me", {
+      locale,
+      token: session.token,
+    });
+    return account.assignedDoctors;
+  } catch {
+    return [];
+  }
 }
 
 export async function getPatient(

@@ -1,6 +1,7 @@
 using Medilog.Application.Common.Interfaces;
 using Medilog.Application.Common.Models;
 using Medilog.Domain.Entities;
+using Medilog.Domain.Enums;
 using Medilog.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,22 +10,40 @@ namespace Medilog.Infrastructure.Repositories;
 public sealed class PatientRepository(AppDbContext db) : IPatientRepository
 {
     public async Task<PagedPatients> SearchAsync(
-        string? search,
+        PatientSearchCriteria criteria,
         int page,
         int pageSize,
         PatientSort sort,
         CancellationToken cancellationToken)
     {
-        var query = db.Patients.AsNoTracking();
+        var doctorIds = criteria.DoctorIds.ToArray();
+        var query = db.Patients.AsNoTracking()
+            .Where(patient => doctorIds.Contains(patient.DoctorId));
 
-        if (!string.IsNullOrWhiteSpace(search))
+        if (!string.IsNullOrWhiteSpace(criteria.Search))
         {
-            var term = search.Trim();
+            var term = criteria.Search.Trim();
             query = query.Where(patient =>
                 patient.FullName.Contains(term)
                 || (patient.FullNameEn != null && patient.FullNameEn.Contains(term))
                 || patient.Code.Contains(term)
                 || (patient.Phone != null && patient.Phone.Contains(term)));
+        }
+
+        if (!string.IsNullOrWhiteSpace(criteria.Gender)
+            && Enum.TryParse<Gender>(criteria.Gender, ignoreCase: true, out var gender))
+        {
+            query = query.Where(patient => patient.Gender == gender);
+        }
+
+        if (criteria.BornOnOrBefore is { } bornOnOrBefore)
+        {
+            query = query.Where(patient => patient.BirthDate <= bornOnOrBefore);
+        }
+
+        if (criteria.BornAfter is { } bornAfter)
+        {
+            query = query.Where(patient => patient.BirthDate > bornAfter);
         }
 
         var total = await query.CountAsync(cancellationToken);
@@ -72,9 +91,15 @@ public sealed class PatientRepository(AppDbContext db) : IPatientRepository
         return new PatientWithLastVisit(patient, lastVisit);
     }
 
-    public Task<bool> PhoneExistsAsync(string phone, Guid? excludeId, CancellationToken cancellationToken) =>
+    public Task<bool> PhoneExistsAsync(
+        string phone,
+        Guid doctorId,
+        Guid? excludeId,
+        CancellationToken cancellationToken) =>
         db.Patients.AnyAsync(
-            patient => patient.Phone == phone && (excludeId == null || patient.PatientId != excludeId),
+            patient => patient.DoctorId == doctorId
+                && patient.Phone == phone
+                && (excludeId == null || patient.PatientId != excludeId),
             cancellationToken);
 
     public Task<int> CountAsync(CancellationToken cancellationToken) =>

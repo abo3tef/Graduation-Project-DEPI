@@ -337,6 +337,10 @@ namespace Medilog.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Address")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
                     b.Property<DateOnly>("BirthDate")
                         .HasColumnType("TEXT");
 
@@ -346,6 +350,13 @@ namespace Medilog.Infrastructure.Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EmergencyContact")
+                        .HasMaxLength(300)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FullName")
@@ -375,11 +386,28 @@ namespace Medilog.Infrastructure.Persistence.Migrations
                     b.HasIndex("Code")
                         .IsUnique();
 
+                    b.HasIndex("DoctorId");
+
                     b.HasIndex("FullName");
 
                     b.HasIndex("Phone");
 
                     b.ToTable("Patients", (string)null);
+                });
+
+            modelBuilder.Entity("Medilog.Domain.Entities.SecretaryDoctor", b =>
+                {
+                    b.Property<Guid>("SecretaryId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("SecretaryId", "DoctorId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("SecretaryDoctors", (string)null);
                 });
 
             modelBuilder.Entity("Medilog.Domain.Entities.User", b =>
@@ -661,6 +689,36 @@ namespace Medilog.Infrastructure.Persistence.Migrations
                     b.Navigation("Patient");
 
                     b.Navigation("Visit");
+                });
+
+            modelBuilder.Entity("Medilog.Domain.Entities.Patient", b =>
+                {
+                    b.HasOne("Medilog.Domain.Entities.User", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+                });
+
+            modelBuilder.Entity("Medilog.Domain.Entities.SecretaryDoctor", b =>
+                {
+                    b.HasOne("Medilog.Domain.Entities.User", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Medilog.Domain.Entities.User", "Secretary")
+                        .WithMany()
+                        .HasForeignKey("SecretaryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Secretary");
                 });
 
             modelBuilder.Entity("Medilog.Domain.Entities.Visit", b =>

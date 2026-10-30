@@ -46,7 +46,7 @@ export function RolePreviewProvider({
       role,
       serverRole: initialRole,
       demoMode,
-      canManage: role === "secretary" || role === "admin",
+      canManage: role === "doctor" || role === "secretary",
       setRole,
     }),
     [role, initialRole, demoMode, setRole],

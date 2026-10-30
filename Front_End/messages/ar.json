@@ -344,13 +344,22 @@
     "title": "المرضى",
     "subtitle": "ابحث في سجلات المرضى وأضف مرضى جدداً.",
     "add": "إضافة مريض",
+    "edit": "تعديل البيانات",
     "searchPlaceholder": "ابحث بالاسم أو رقم الهاتف أو الكود...",
     "searchLabel": "البحث في المرضى",
     "clearSearch": "مسح البحث",
+    "filters": {
+      "gender": "النوع",
+      "allGenders": "كل الأنواع",
+      "minAge": "أقل عمر",
+      "maxAge": "أكبر عمر",
+      "ageHint": "أدخل أعماراً صحيحة بين 0 و{max}.",
+      "clear": "مسح الفلاتر"
+    },
     "emptyTitle": "لا يوجد مرضى بعد",
     "emptyDescription": "أضف أول مريض لبدء بناء سجل العيادة.",
     "noResultsTitle": "لا توجد نتائج",
-    "noResultsDescription": "جرّب البحث باسم آخر أو برقم هاتف مختلف.",
+    "noResultsDescription": "جرّب البحث باسم آخر أو برقم هاتف مختلف أو بفلاتر أقل.",
     "columns": {
       "name": "المريض",
       "phone": "الهاتف",
@@ -381,7 +390,16 @@
       "genderPlaceholder": "اختر النوع",
       "notes": "ملاحظات",
       "notesPlaceholder": "ملاحظات طبية مختصرة (اختياري)",
+      "address": "العنوان",
+      "addressPlaceholder": "الشارع، المنطقة، المدينة",
+      "emergencyContact": "جهة اتصال الطوارئ",
+      "emergencyContactPlaceholder": "الاسم ورقم الهاتف",
+      "doctor": "الطبيب",
+      "doctorPlaceholder": "اختر الطبيب",
+      "editTitle": "تعديل بيانات المريض",
+      "editDescription": "حدّث البيانات الإدارية للمريض.",
       "submit": "حفظ المريض",
+      "saveChanges": "حفظ التعديلات",
       "saving": "جارٍ الحفظ...",
       "errors": {
         "required": "يرجى إكمال الحقول المطلوبة.",
@@ -391,6 +409,11 @@
         "birthDateFuture": "لا يمكن أن يكون تاريخ الميلاد في المستقبل.",
         "gender": "اختر النوع.",
         "notes": "الملاحظات طويلة جداً.",
+        "address": "العنوان طويل جداً (500 حرف كحد أقصى).",
+        "emergencyContact": "جهة اتصال الطوارئ طويلة جداً (300 حرف كحد أقصى).",
+        "doctorRequired": "اختر الطبيب الخاص بهذا المريض.",
+        "doctorNotAllowed": "لا يمكنك تسجيل مرضى لهذا الطبيب.",
+        "notFound": "تعذر العثور على هذا المريض.",
         "duplicatePhone": "يوجد مريض مسجل بهذا الرقم بالفعل.",
         "generic": "تعذر حفظ بيانات المريض. حاول مرة أخرى."
       }
@@ -407,6 +430,8 @@
       "birthDate": "تاريخ الميلاد",
       "age": "العمر",
       "gender": "النوع",
+      "address": "العنوان",
+      "emergencyContact": "جهة اتصال الطوارئ",
       "lastVisit": "آخر زيارة"
     }
   },

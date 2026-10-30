@@ -34,6 +34,11 @@ export interface PatientListItem {
 export interface PatientDetail extends PatientListItem {
   notes: string | null;
   createdAt: string;
+  address: string | null;
+  emergencyContact: string | null;
+  doctorId: string;
+  /** The name exactly as stored; ullName is the localized display name. Edit forms use this one. */
+  name: string;
 }
 
 export interface PagedResult<T> {
@@ -59,6 +64,9 @@ export interface PatientSearchParams {
   page?: number;
   pageSize?: number;
   sort?: PatientSort;
+  gender?: Gender;
+  minAge?: number;
+  maxAge?: number;
 }
 
 export interface PatientOption {

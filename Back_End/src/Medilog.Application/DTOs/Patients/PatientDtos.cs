@@ -12,6 +12,10 @@ public sealed record PatientListItemDto(
     int Age,
     DateTime? LastVisitAt);
 
+/// <summary>
+/// <paramref name="FullName"/> is the display name for the request language (English when available);
+/// <paramref name="Name"/> is the name exactly as stored, which is what an edit form must submit back.
+/// </summary>
 public sealed record PatientDetailDto(
     Guid Id,
     string Code,
@@ -22,29 +26,49 @@ public sealed record PatientDetailDto(
     int Age,
     DateTime? LastVisitAt,
     string? Notes,
-    DateTime CreatedAt);
+    DateTime CreatedAt,
+    string? Address = null,
+    string? EmergencyContact = null,
+    Guid DoctorId = default,
+    string Name = "");
 
+/// <summary>
+/// <paramref name="DoctorId"/> selects the owning doctor. It is optional for a doctor (always themselves)
+/// and for a secretary assigned to exactly one doctor; it is required for a secretary with several doctors.
+/// </summary>
 public sealed record CreatePatientRequest(
     string Name,
     string Phone,
     DateOnly BirthDate,
     string Gender,
-    string? Notes);
+    string? Notes,
+    string? Address = null,
+    string? EmergencyContact = null,
+    Guid? DoctorId = null);
 
 public sealed record UpdatePatientRequest(
     string Name,
     string Phone,
     DateOnly BirthDate,
     string Gender,
-    string? Notes);
+    string? Notes,
+    string? Address = null,
+    string? EmergencyContact = null);
 
-public sealed record PatientSearchQuery
+/// <summary>
+/// Every field is optional. Defaults are declared on the constructor, not on properties, because
+/// minimal-API <c>[AsParameters]</c> binding only honors constructor defaults; <paramref name="Sort"/>
+/// falls back to the most recent visit first.
+/// </summary>
+public sealed record PatientSearchQuery(
+    string? Search = null,
+    int Page = 1,
+    int PageSize = 10,
+    string? Sort = null,
+    string? Gender = null,
+    int? MinAge = null,
+    int? MaxAge = null)
 {
-    public string? Search { get; init; }
-    public int Page { get; init; } = 1;
-    public int PageSize { get; init; } = 10;
-    public string Sort { get; init; } = "lastVisit_desc";
-
     public PatientSort ParsedSort => Sort switch
     {
         "name_asc" => PatientSort.NameAsc,

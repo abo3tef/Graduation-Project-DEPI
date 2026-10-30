@@ -30,3 +30,19 @@ C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Application\bin\Debug\n
 C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Application\bin\Debug\net10.0\Medilog.Domain.pdb
 C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Application\obj\Debug\net10.0\Medilog..C779770F.Up2Date
 C:\Projects\Graduation-Project-DEPI\Back_End\src\Medilog.Application\obj\Debug\net10.0\ref\Medilog.Application.dll
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Application\bin\Debug\net10.0\Medilog.Application.deps.json
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Application\bin\Debug\net10.0\Medilog.Application.dll
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Application\bin\Debug\net10.0\Medilog.Application.pdb
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Application\bin\Debug\net10.0\Medilog.Domain.dll
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Application\bin\Debug\net10.0\Medilog.Domain.pdb
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Application\obj\Debug\net10.0\Medilog.Application.csproj.AssemblyReference.cache
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Application\obj\Debug\net10.0\Medilog.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Application\obj\Debug\net10.0\Medilog.Application.AssemblyInfoInputs.cache
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Application\obj\Debug\net10.0\Medilog.Application.AssemblyInfo.cs
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Application\obj\Debug\net10.0\Medilog.Application.csproj.CoreCompileInputs.cache
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Application\obj\Debug\net10.0\Medilog.Application.sourcelink.json
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Application\obj\Debug\net10.0\Medilog..C779770F.Up2Date
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Application\obj\Debug\net10.0\Medilog.Application.dll
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Application\obj\Debug\net10.0\refint\Medilog.Application.dll
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Application\obj\Debug\net10.0\Medilog.Application.pdb
+D:\menna-D\Full-Stack Depi\GradutionProject\Repo\Graduation-Project-DEPI\Back_End\src\Medilog.Application\obj\Debug\net10.0\ref\Medilog.Application.dll

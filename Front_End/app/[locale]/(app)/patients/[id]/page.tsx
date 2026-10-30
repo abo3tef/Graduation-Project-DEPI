@@ -5,10 +5,14 @@ import {
   FiArrowLeft,
   FiCalendar,
   FiClipboard,
+  FiMapPin,
   FiPhone,
+  FiPhoneCall,
   FiUser,
 } from "react-icons/fi";
 import { Link } from "@/i18n/navigation";
+import { EditPatientButton } from "@/features/patients/EditPatientButton";
+import { requireSession } from "@/data/auth/session";
 import { getPatient } from "@/data/patients/queries";
 import { ApiError } from "@/data/api/client";
 import { toLocale } from "@/lib/locale";
@@ -67,6 +71,10 @@ export default async function PatientDetailPage({
   const locale: Locale = toLocale(rawLocale);
   setRequestLocale(locale);
 
+  const session = await requireSession(locale);
+  // Secretaries see basic patient information only: no clinical notes, no visit history.
+  const showMedicalSummary = session.role !== "secretary";
+
   let patient;
   try {
     patient = await getPatient(locale, id);
@@ -116,6 +124,7 @@ export default async function PatientDetailPage({
               {common("age", { age: patient.age })}
             </p>
           </div>
+          <EditPatientButton patient={patient} />
         </div>
       </div>
 
@@ -149,14 +158,26 @@ export default async function PatientDetailPage({
               value={tPatients(`gender.${patient.gender}`)}
             />
             <InfoRow
-              icon={<FiCalendar aria-hidden="true" className="size-4" />}
-              label={t("lastVisit")}
-              value={
-                patient.lastVisitAt
-                  ? formatFullDate(patient.lastVisitAt, locale)
-                  : common("noVisitYet")
-              }
+              icon={<FiMapPin aria-hidden="true" className="size-4" />}
+              label={t("address")}
+              value={patient.address ?? "—"}
             />
+            <InfoRow
+              icon={<FiPhoneCall aria-hidden="true" className="size-4" />}
+              label={t("emergencyContact")}
+              value={patient.emergencyContact ?? "—"}
+            />
+            {showMedicalSummary ? (
+              <InfoRow
+                icon={<FiCalendar aria-hidden="true" className="size-4" />}
+                label={t("lastVisit")}
+                value={
+                  patient.lastVisitAt
+                    ? formatFullDate(patient.lastVisitAt, locale)
+                    : common("noVisitYet")
+                }
+              />
+            ) : null}
             <InfoRow
               icon={<FiClipboard aria-hidden="true" className="size-4" />}
               label={t("registered")}
@@ -165,18 +186,20 @@ export default async function PatientDetailPage({
           </div>
         </section>
 
-        <section className="rounded-2xl border border-border bg-surface p-5">
-          <h3 className="mb-3 text-sm font-bold">{t("notesTitle")}</h3>
-          {patient.notes ? (
-            <p className="whitespace-pre-line text-sm leading-7 text-muted">
-              {patient.notes}
-            </p>
-          ) : (
-            <p className="rounded-xl border border-dashed border-border px-4 py-8 text-center text-xs text-muted">
-              {t("noNotes")}
-            </p>
-          )}
-        </section>
+        {showMedicalSummary ? (
+          <section className="rounded-2xl border border-border bg-surface p-5">
+            <h3 className="mb-3 text-sm font-bold">{t("notesTitle")}</h3>
+            {patient.notes ? (
+              <p className="whitespace-pre-line text-sm leading-7 text-muted">
+                {patient.notes}
+              </p>
+            ) : (
+              <p className="rounded-xl border border-dashed border-border px-4 py-8 text-center text-xs text-muted">
+                {t("noNotes")}
+              </p>
+            )}
+          </section>
+        ) : null}
       </div>
     </div>
   );

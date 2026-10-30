@@ -73,7 +73,19 @@ public static class DbSeeder
             NewPatient("PT-0249", "طارق نبيل", "Tarek Nabil", "01225550249", new DateOnly(1983, 3, 11), Gender.Male, now.AddDays(-1), null)
         };
 
+        foreach (var patient in patients)
+        {
+            patient.DoctorId = doctor.UserId;
+        }
+
+        patients[0].Address = "12 شارع النيل، المعادي، القاهرة";
+        patients[0].EmergencyContact = "حسن محمود - 01005550001";
+        patients[1].Address = "5 شارع الجامعة، الجيزة";
+        patients[1].EmergencyContact = "سعيد علي - 01005550002";
+        patients[2].Address = "8 شارع التحرير، الدقي، الجيزة";
+
         db.Patients.AddRange(patients);
+        db.SecretaryDoctors.Add(new SecretaryDoctor { SecretaryId = secretary.UserId, DoctorId = doctor.UserId });
 
         // Visits over the last four weeks. The pattern is deterministic so the
         // dashboard chart is stable across fresh runs.

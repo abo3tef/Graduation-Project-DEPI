@@ -19,10 +19,15 @@ public static class DtoMapper
         user.Phone,
         user.Specialization);
 
+    /// <param name="includeMedicalSummary">
+    /// False for callers limited to basic patient information (secretaries): the last-visit date,
+    /// which derives from medical records, is withheld.
+    /// </param>
     public static PatientListItemDto ToListItem(
         this PatientWithLastVisit item,
         ILanguageContext language,
-        DateTime utcNow) => new(
+        DateTime utcNow,
+        bool includeMedicalSummary = true) => new(
         item.Patient.PatientId,
         item.Patient.Code,
         DisplayName(item.Patient.FullName, item.Patient.FullNameEn, language),
@@ -30,12 +35,17 @@ public static class DtoMapper
         item.Patient.BirthDate,
         GenderCode(item.Patient.Gender),
         Common.Text.TextNormalizer.CalculateAge(item.Patient.BirthDate, utcNow),
-        AsUtc(item.LastVisitAt));
+        includeMedicalSummary ? AsUtc(item.LastVisitAt) : null);
 
+    /// <param name="includeMedicalSummary">
+    /// False for callers limited to basic patient information (secretaries): clinical notes and the
+    /// last-visit date are withheld.
+    /// </param>
     public static PatientDetailDto ToDetail(
         this PatientWithLastVisit item,
         ILanguageContext language,
-        DateTime utcNow) => new(
+        DateTime utcNow,
+        bool includeMedicalSummary = true) => new(
         item.Patient.PatientId,
         item.Patient.Code,
         DisplayName(item.Patient.FullName, item.Patient.FullNameEn, language),
@@ -43,9 +53,13 @@ public static class DtoMapper
         item.Patient.BirthDate,
         GenderCode(item.Patient.Gender),
         Common.Text.TextNormalizer.CalculateAge(item.Patient.BirthDate, utcNow),
-        AsUtc(item.LastVisitAt),
-        item.Patient.Notes,
-        AsUtc(item.Patient.CreatedAt));
+        includeMedicalSummary ? AsUtc(item.LastVisitAt) : null,
+        includeMedicalSummary ? item.Patient.Notes : null,
+        AsUtc(item.Patient.CreatedAt),
+        item.Patient.Address,
+        item.Patient.EmergencyContact,
+        item.Patient.DoctorId,
+        item.Patient.FullName);
 
     public static AppointmentDto ToDto(this Appointment appointment, ILanguageContext language) => new(
         appointment.AppointmentId,
